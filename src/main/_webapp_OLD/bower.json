@@ -1,0 +1,24 @@
+{
+  "name": "app",
+  "authors": [
+    "Missy Williams <missywilliams85@gmail.com>"
+  ],
+  "description": "Cookbook App",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "dist/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "angular-material": "~1.0.2"
+  }
+}
