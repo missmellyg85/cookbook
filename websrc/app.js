@@ -1,3 +1,5 @@
-require('./logger');
-document.write('welcome to my app');
-console.log('app loaded');
+import angular from 'angular';
+
+angular.module('app', [
+  'app.recipes'
+]);

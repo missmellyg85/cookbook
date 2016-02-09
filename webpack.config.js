@@ -17,11 +17,15 @@ module.exports = {
 					cacheDirectory: true,
 					presets: ['react', 'es2015']
 				}
+			},
+			{
+				test: /\.html$/,
+				loader: 'html-loader'
 			}
 		]
 	},
 	resolve: {
-		extensions: ['', '.js']
+		extensions: ['', '.js', '.html']
 	},
 	watch: true
 }
