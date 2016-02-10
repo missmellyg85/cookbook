@@ -1,8 +1,11 @@
-export default function recipesDirective() {
+import controller from './controller';
+
+export default function RecipesComponent() {
   return {
-    restrict: 'E',
+    restrict: 'EA',
+    replace: false,
     templateUrl: require('./template.html'),
-    controller: require('./controller'),
+    controller: controller,
     controllerAs: 'recipesCtrl'
   }
 }

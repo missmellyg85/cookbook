@@ -1,4 +1,4 @@
-import recipesDirective from './directive';
+import RecipesComponent from './directive';
 
 export default angular.module('app.recipes', [])
-  .directive('recipesComponent', recipesDirective);
+  .directive('recipesComponent', RecipesComponent);

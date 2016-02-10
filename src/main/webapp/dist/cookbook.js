@@ -53,9 +53,13 @@
 
 	'use strict';
 
-	__webpack_require__(2);
+	var _angular = __webpack_require__(2);
 
-	angular.module('app', ['app.recipes']);
+	var _angular2 = _interopRequireDefault(_angular);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	_angular2.default.module('app', ['app.recipes']);
 
 /***/ },
 /* 2 */
