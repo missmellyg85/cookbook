@@ -57,6 +57,8 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
+	__webpack_require__(4);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_angular2.default.module('app', ['app.recipes']);
@@ -30501,6 +30503,77 @@
 	})(window, document);
 
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _directive = __webpack_require__(5);
+
+	var _directive2 = _interopRequireDefault(_directive);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = angular.module('app.recipes', []).directive('recipesComponent', _directive2.default);
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = RecipesComponent;
+
+	var _controller = __webpack_require__(6);
+
+	var _controller2 = _interopRequireDefault(_controller);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function RecipesComponent() {
+	  return {
+	    restrict: 'EA',
+	    replace: false,
+	    template: __webpack_require__(7),
+	    controller: _controller2.default,
+	    controllerAs: 'recipesCtrl'
+	  };
+	}
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Controller = function Controller() {
+	  _classCallCheck(this, Controller);
+
+	  this.title = "Recipes Page";
+	};
+
+	exports.default = Controller;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = "<h1>{{recipesCtrl.title}}</h1>\n<p>Eventually there will be some recipes here.</p>\n";
 
 /***/ }
 /******/ ]);

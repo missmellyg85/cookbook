@@ -15,17 +15,17 @@ module.exports = {
 				loader: 'babel-loader',
 				query: {
 					cacheDirectory: true,
-					presets: ['react', 'es2015']
+					presets: ['es2015']
 				}
 			},
 			{
 			  test: /\.html$/,
-			  loader: "html-loader"
+			  loader: "html"
 			}
 		]
 	},
 	resolve: {
-		extensions: ['', '.js', '.html']
+		extensions: ['', '.js']
 	},
 	watch: true
 }

@@ -4,8 +4,8 @@ export default function RecipesComponent() {
   return {
     restrict: 'EA',
     replace: false,
-    templateUrl: require('./template.html'),
-    controller: controller,
+    template: require('./template.html'),
+    controller,
     controllerAs: 'recipesCtrl'
   }
 }
