@@ -29,12 +29,13 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
 	compile('org.codehaus.groovy:groovy')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-
+	compile('org.codehaus.groovy:groovy-sql:2.0.1')
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework:spring-tx")
 	compile("postgresql:postgresql:9.1-901-1.jdbc4")
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 task wrapper(type: Wrapper) {

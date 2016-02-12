@@ -1,16 +1,23 @@
 package cookbook
 
-import org.springframework.context.annotation.Configuration
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration
-import org.springframework.context.annotation.ComponentScan
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.context.annotation.Bean
 import org.springframework.boot.SpringApplication
+import groovy.sql.Sql
 
-@Configuration
-@ComponentScan
-@EnableAutoConfiguration
+@SpringBootApplication
 public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args)
+	}
+
+	@Bean
+	public Sql db() {
+		def dbUrl = "jdbc:postgresql://localhost:5432/cookbook"
+		def dbUser = "missywilliams"
+		def dbDriver = "org.postgresql.Driver"
+
+		Sql.newInstance(dbUrl,dbUser,"", dbDriver)
 	}
 }

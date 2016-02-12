@@ -1,2 +1,11 @@
-<h1>{{recipesCtrl.title}}</h1>
-<p>Eventually there will be some recipes here.</p>
+<h1>{{recipeCtrl.title}}</h1>
+
+<ul>
+    <li ng-repeat="recipe in recipeCtrl.recipes">{{recipe.name}} - <span ng-click="recipeCtrl.deleteRecipe(recipe.id)">Delete</span></li>
+</ul>
+
+<form ng-submit="recipeCtrl.createRecipe(recipeCtrl.newRecipe)">
+    <label>Recipe Name:</label>
+    <input ng-model="recipeCtrl.newRecipe.name">
+    <button type="submit">Submit</button>
+</form>

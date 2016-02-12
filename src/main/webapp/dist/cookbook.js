@@ -30518,9 +30518,13 @@
 
 	var _directive2 = _interopRequireDefault(_directive);
 
+	var _service = __webpack_require__(8);
+
+	var _service2 = _interopRequireDefault(_service);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = angular.module('app.recipes', []).directive('recipesComponent', _directive2.default);
+	exports.default = angular.module('app.recipes', []).service('recipeService', _service2.default).directive('recipesComponent', _directive2.default);
 
 /***/ },
 /* 5 */
@@ -30545,7 +30549,7 @@
 	    replace: false,
 	    template: __webpack_require__(7),
 	    controller: _controller2.default,
-	    controllerAs: 'recipesCtrl'
+	    controllerAs: 'recipeCtrl'
 	  };
 	}
 
@@ -30555,17 +30559,62 @@
 
 	"use strict";
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Controller = function Controller() {
-	  _classCallCheck(this, Controller);
+	var Controller = function () {
+		function Controller(recipeService) {
+			_classCallCheck(this, Controller);
 
-	  this.title = "Recipes Page";
-	};
+			this.service = recipeService;
+			this.title = "Recipes Page";
+			this.loadRecipes();
+		}
+
+		_createClass(Controller, [{
+			key: "loadRecipes",
+			value: function loadRecipes() {
+				var _this = this;
+
+				this.service.getAllRecipes().then(function (response) {
+					_this.recipes = response.data;
+				});
+			}
+		}, {
+			key: "createRecipe",
+			value: function createRecipe(recipe) {
+				var _this2 = this;
+
+				this.service.createRecipe(recipe).then(function () {
+					_this2.resetForm();
+					_this2.loadRecipes();
+				});
+			}
+		}, {
+			key: "deleteRecipe",
+			value: function deleteRecipe(id) {
+				var _this3 = this;
+
+				this.service.deleteRecipe(id).then(function () {
+					_this3.loadRecipes();
+				});
+			}
+		}, {
+			key: "resetForm",
+			value: function resetForm() {
+				this.newRecipe = {};
+			}
+		}]);
+
+		return Controller;
+	}();
+
+	Controller.$inject = ['recipeService'];
 
 	exports.default = Controller;
 
@@ -30573,7 +30622,52 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>{{recipesCtrl.title}}</h1>\n<p>Eventually there will be some recipes here.</p>\n";
+	module.exports = "<h1>{{recipeCtrl.title}}</h1>\n\n<ul>\n    <li ng-repeat=\"recipe in recipeCtrl.recipes\">{{recipe.name}} - <span ng-click=\"recipeCtrl.deleteRecipe(recipe.id)\">Delete</span></li>\n</ul>\n\n<form ng-submit=\"recipeCtrl.createRecipe(recipeCtrl.newRecipe)\">\n    <label>Recipe Name:</label>\n    <input ng-model=\"recipeCtrl.newRecipe.name\">\n    <button type=\"submit\">Submit</button>\n</form>";
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Service = function () {
+		function Service($http) {
+			_classCallCheck(this, Service);
+
+			this.$http = $http;
+		}
+
+		_createClass(Service, [{
+			key: 'getAllRecipes',
+			value: function getAllRecipes() {
+				return this.$http.get('http://localhost:8080/recipe/all');
+			}
+		}, {
+			key: 'createRecipe',
+			value: function createRecipe(recipe) {
+				return this.$http.post('http://localhost:8080/recipe', recipe);
+			}
+		}, {
+			key: 'deleteRecipe',
+			value: function deleteRecipe(id) {
+				return this.$http.delete('http://localhost:8080/recipe/' + id);
+			}
+		}]);
+
+		return Service;
+	}();
+
+	exports.default = Service;
+
+	Service.$inject = ['$http'];
 
 /***/ }
 /******/ ]);
