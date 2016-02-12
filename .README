@@ -1,10 +1,13 @@
-## How to set up for the first time
+## To set up for the first time
 1. Run $ npm install
 2. Run $ npm install -g webpack
 3. Run $ npm install -g webpack-dev-server
 
-## How to compile the app
+## To compile the app
 $ webpack
 
-## How to run the app
+## To run the frontend app
 $ npm start
+
+## To run the backend app
+$ ./gradlew clean bootRun
