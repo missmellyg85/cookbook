@@ -27,3 +27,15 @@ CREATE TABLE recipe_ingredient (
   measurement_amount SMALLINT,
   measurement_type_id INTEGER REFERENCES measurement_type
 );
+
+CREATE TABLE instruction (
+  id SERIAL,
+  text TEXT,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE recipe_instruction (
+  recipe_id INTEGER references recipe ON DELETE CASCADE,
+  instruction_id INTEGER references instruction,
+  instruction_number SMALLINT
+);

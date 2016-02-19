@@ -35151,6 +35151,27 @@
 			this.service = recipeService;
 			this.title = "Recipes Page";
 			this.loadRecipes();
+
+			var newRecipe = {
+				name: null,
+				ingredients: [{
+					ingredient: {
+						name: null
+					},
+					amount: null,
+					measurementType: {
+						name: null,
+						abbreviation: null
+					}
+				}],
+				instructions: [{
+					instruction: {
+						text: null
+					},
+					instruction_number: null
+				}]
+			};
+			this.newRecipe = newRecipe;
 		}
 
 		_createClass(Controller, [{
@@ -35167,6 +35188,7 @@
 			value: function createRecipe(recipe) {
 				var _this2 = this;
 
+				console.log("create recipe", recipe);
 				this.service.createRecipe(recipe).then(function () {
 					_this2.resetForm();
 					_this2.loadRecipes();
@@ -35184,7 +35206,51 @@
 		}, {
 			key: "resetForm",
 			value: function resetForm() {
-				this.newRecipe = {};
+				this.newRecipe = {
+					name: null,
+					ingredients: [{
+						ingredient: {
+							name: null
+						},
+						measurementAmount: null,
+						measurementType: {
+							name: null,
+							abbreviation: null
+						}
+					}],
+					instructions: [{
+						instruction: {
+							text: null
+						},
+						instruction_number: null
+					}]
+				};
+			}
+		}, {
+			key: "addRecipeIngredientInput",
+			value: function addRecipeIngredientInput() {
+				console.log("add more ingredients");
+				this.newRecipe.ingredients.push({
+					ingredient: {
+						name: null
+					},
+					measurementAmount: null,
+					measurementType: {
+						name: null,
+						abbreviation: null
+					}
+				});
+			}
+		}, {
+			key: "addRecipeInstructionInput",
+			value: function addRecipeInstructionInput() {
+				console.log("add more instructions");
+				this.newRecipe.instructions.push({
+					instruction: {
+						text: null
+					},
+					instruction_number: null
+				});
 			}
 		}]);
 
@@ -35199,7 +35265,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>{{recipeCtrl.title}}</h1>\n\n<ul>\n    <li ng-repeat=\"recipe in recipeCtrl.recipes\">{{recipe.name}} - <span ng-click=\"recipeCtrl.deleteRecipe(recipe.id)\">Delete</span></li>\n</ul>\n\n<form ng-submit=\"recipeCtrl.createRecipe(recipeCtrl.newRecipe)\">\n    <label>Recipe Name:</label>\n    <input ng-model=\"recipeCtrl.newRecipe.name\">\n    <button type=\"submit\">Submit</button>\n</form>";
+	module.exports = "<h1>{{recipeCtrl.title}}</h1>\n\n<ul>\n    <li ng-repeat=\"recipe in recipeCtrl.recipes\">{{recipe.name}} - <span ng-click=\"recipeCtrl.deleteRecipe(recipe.id)\">Delete</span></li>\n</ul>\n\n<form>\n    <label>Recipe Name:</label>\n    <input ng-model=\"recipeCtrl.newRecipe.name\">\n\n    <table>\n        <tr>\n            <th>Qty</th>\n            <th>Measurement</th>\n            <th>Ingredient</th>\n        </tr>\n        <tr ng-repeat=\"ri in recipeCtrl.newRecipe.ingredients\">\n            <td><input ng-model=\"ri.measurementAmount\"/></td>\n            <td><input ng-model=\"ri.measurementType.name\"/></td>\n            <td><input ng-model=\"ri.ingredient.name\"/></td>\n        </tr>\n    </table>\n    <div>\n        <button ng-click=\"recipeCtrl.addRecipeIngredientInput()\">Add More Ingredients</button>\n    </div>\n\n    <table>\n        <tr>\n            <th></th>\n            <th>Instructions</th>\n        </tr>\n        <tr ng-repeat=\"ri in recipeCtrl.newRecipe.instructions\">\n            <td ng-init=\"ri.instruction_number=$index+1\">{{$index+1}}</td>\n            <td><textarea ng-model=\"ri.instruction.text\"></textarea></td>\n        </tr>\n    </table>\n    <div>\n        <button ng-click=\"recipeCtrl.addRecipeInstructionInput()\">Add More Instructions</button>\n    </div>\n\n    <div>\n        <button type=\"submit\" ng-click=\"recipeCtrl.createRecipe(recipeCtrl.newRecipe)\" >Submit</button>\n    </div>\n</form>\n\n{{recipeCtrl.newRecipe}}";
 
 /***/ },
 /* 10 */

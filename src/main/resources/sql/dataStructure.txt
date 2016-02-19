@@ -1,0 +1,22 @@
+= recipe =
+    id
+    name
+= ingredient =
+    id
+    name
+= recipe_ingredient =
+    recipe_id
+    ingredient_id
+    amount
+    measurement_type_id
+= measurement_type =
+    id
+    name
+    abbreviation*
+= recipe_instruction =
+    recipe_id
+    instruction_id
+    instruction_number
+= instruction =
+    id
+    text
