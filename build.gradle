@@ -28,8 +28,8 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
-	compile('org.codehaus.groovy:groovy:2.4.5')
-	compile('org.codehaus.groovy:groovy-all:2.4.5')
+	compile('org.codehaus.groovy:groovy:2.4.4')
+	compile('org.codehaus.groovy:groovy-all:2.4.4')
 	compile('org.codehaus.groovy:groovy-sql:2.0.1')
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
