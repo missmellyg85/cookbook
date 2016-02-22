@@ -1,5 +1,6 @@
 package cookbook
 
+import cookbook.daos.CookbookDao
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.boot.SpringApplication
@@ -19,5 +20,10 @@ public class Application {
 		def dbDriver = "org.postgresql.Driver"
 
 		Sql.newInstance(dbUrl,dbUser,"", dbDriver)
+	}
+
+	@Bean
+	public CookbookDao dao() {
+		new CookbookDao()
 	}
 }

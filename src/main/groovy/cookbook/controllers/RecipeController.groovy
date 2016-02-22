@@ -15,7 +15,7 @@ import javax.validation.Valid
 @RequestMapping("/recipe")
 class RecipeController {
     @Autowired Sql db
-    CookbookDao dao
+    @Autowired CookbookDao dao
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Recipe getRecipe(@PathVariable(value="id") int id) {
