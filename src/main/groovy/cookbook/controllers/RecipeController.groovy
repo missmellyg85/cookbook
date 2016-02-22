@@ -4,7 +4,6 @@ import cookbook.daos.CookbookDao
 import cookbook.domain.Recipe
 import cookbook.domain.RecipeIngredient
 import cookbook.domain.RecipeInstruction
-import groovy.sql.Sql
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -14,11 +13,10 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/recipe")
 class RecipeController {
-    @Autowired Sql db
     @Autowired CookbookDao dao
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Recipe getRecipe(@PathVariable(value="id") int id) {
+    public Map getRecipe(@PathVariable(value="id") int id) {
         dao.getRecipe(id)
     }
 

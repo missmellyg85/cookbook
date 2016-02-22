@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 class CookbookDao {
     @Autowired Sql db
 
-    Recipe getRecipe(int id) {
+    Map getRecipe(int id) {
         db.firstRow("SELECT * from recipe where id=${id}")
     }
 
