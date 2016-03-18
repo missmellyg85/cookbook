@@ -7,7 +7,7 @@
 = recipe_ingredient =
     recipe_id
     ingredient_id
-    amount
+    measurement_amount
     measurement_type_id
 = measurement_type =
     id

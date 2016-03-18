@@ -32,12 +32,17 @@ dependencies {
 	compile('org.codehaus.groovy:groovy-all:2.4.4')
 	compile('org.codehaus.groovy:groovy-sql:2.0.1')
 	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-jdbc")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework:spring-tx")
 	compile("postgresql:postgresql:9.1-901-1.jdbc4")
 
+	compile("org.mybatis:mybatis:3.3.1")
+	compile("org.mybatis:mybatis-spring:1.2.4")
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
+	compile 'org.spockframework:spock-spring:1.0-groovy-2.4'
 }
 
 task wrapper(type: Wrapper) {

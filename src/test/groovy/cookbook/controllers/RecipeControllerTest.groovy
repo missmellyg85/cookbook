@@ -1,29 +1,27 @@
 package cookbook.controllers
 
-import cookbook.daos.CookbookDao
-import cookbook.domain.Recipe
-import groovy.sql.GroovyRowResult
+import cookbook.Application
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.SpringApplicationConfiguration
+import org.springframework.boot.test.WebIntegrationTest
 import spock.lang.Specification
 
+
+@WebIntegrationTest
+@SpringApplicationConfiguration(Application.class)
 class RecipeControllerTest extends Specification {
-    def controller = new RecipeController()
-    def recipe = [name:"Enchilada"]
-    def recipes = []
 
-    def setup() {
-        recipes = [recipe]
+    @Autowired RecipeController recipeController
 
-        def dao = [getRecipe: { int id ->
-            recipes.get(id-1)
-        }] as CookbookDao
+    def "its a test"() {
+        given:
+            def a = 2
+            def b = 2
 
-        controller.dao = dao
+        when:
+            def result = recipeController.getRecipe(27)
+
+        then:
+            result == 19
     }
-
-    def "getRecipe returns a recipe object"() {
-
-        expect:
-            controller.getRecipe(1) == recipes.first()
-    }
-
 }

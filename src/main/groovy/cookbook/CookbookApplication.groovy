@@ -1,12 +1,16 @@
 package cookbook
 
-import cookbook.daos.CookbookDao
+import org.apache.ibatis.session.SqlSessionFactory
+import org.mybatis.spring.SqlSessionFactoryBean
+import org.mybatis.spring.annotation.MapperScan
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.boot.SpringApplication
-import groovy.sql.Sql
+
+import javax.sql.DataSource
 
 @SpringBootApplication
+@MapperScan("cookbook.daos")
 public class Application {
 
 	public static void main(String[] args) {
@@ -14,16 +18,9 @@ public class Application {
 	}
 
 	@Bean
-	public Sql db() {
-		def dbUrl = "jdbc:postgresql://localhost:5432/cookbook"
-		def dbUser = "missywilliams"
-		def dbDriver = "org.postgresql.Driver"
-
-		Sql.newInstance(dbUrl,dbUser,"", dbDriver)
-	}
-
-	@Bean
-	public CookbookDao dao() {
-		new CookbookDao()
+	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
+		sqlSessionFactory.setDataSource(dataSource);
+		return sqlSessionFactory.getObject();
 	}
 }
