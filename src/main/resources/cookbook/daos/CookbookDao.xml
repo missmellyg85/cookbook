@@ -5,31 +5,30 @@
 <mapper namespace="cookbook.daos.CookbookDao">
     <select id="getRecipe" resultMap="RecipeMap">
         SELECT
-          r.id, r.name,
-          ri.measurement_amount
---           ,
---           mt.name, mt.abbreviation,
---           i.name
+          r.name as recipe_name,
+          ri.measurement_amount as measurement_amount,
+          mt.name as mt_name, mt.abbreviation,
+          i.name as i_name
         FROM
           recipe r
           INNER JOIN recipe_ingredient ri on ri.recipe_id = r.id
---           INNER JOIN measurement_type mt on mt.id = ri.measurement_type_id
---           INNER JOIN ingredient i on i.id = ri.ingredient_id
+          INNER JOIN measurement_type mt on mt.id = ri.measurement_type_id
+          INNER JOIN ingredient i on i.id = ri.ingredient_id
         WHERE
           r.id = #{id}
     </select>
 
     <resultMap id="RecipeMap" type="cookbook.domain.Recipe">
-        <result property="name" column="r.name" />
+        <result property="name" column="recipe_name" />
         <collection property="ingredients" ofType="cookbook.domain.RecipeIngredient">
-            <result property="measurementAmount" column="ri.measurement_amount"/>
-            <!--<association property="ingredient" javaType="cookbook.domain.Ingredient">-->
-                <!--<result property="name" column="i.name" />-->
-            <!--</association>-->
-            <!--<association property="measurementType" javaType="cookbook.domain.MeasurementType">-->
-                <!--<result property="name" column="mt.name" />-->
-                <!--<result property="abbreviation" column="mt.abbreviation" />-->
-            <!--</association>-->
+            <result property="measurementAmount" column="measurement_amount"/>
+            <association property="ingredient" javaType="cookbook.domain.Ingredient">
+                <result property="name" column="i_name" />
+            </association>
+            <association property="measurementType" javaType="cookbook.domain.MeasurementType">
+                <result property="name" column="mt_name" />
+                <result property="abbreviation" column="abbreviation" />
+            </association>
         </collection>
     </resultMap>
 

@@ -1,7 +1,7 @@
 package cookbook.domain
 
 class RecipeIngredient {
-//    Ingredient ingredient
+    Ingredient ingredient
     Double measurementAmount
-//    MeasurementType measurementType
+    MeasurementType measurementType
 }
