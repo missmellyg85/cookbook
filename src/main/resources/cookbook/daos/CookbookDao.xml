@@ -3,22 +3,47 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cookbook.daos.CookbookDao">
+
     <select id="getRecipe" resultMap="RecipeMap">
         SELECT
+          r.id as recipe_id,
           r.name as recipe_name,
           ri.measurement_amount as measurement_amount,
           mt.name as mt_name, mt.abbreviation,
-          i.name as i_name
+          i.name as i_name,
+          r_in.instruction_number as instruction_number,
+          instr.text as in_text
         FROM
           recipe r
-          INNER JOIN recipe_ingredient ri on ri.recipe_id = r.id
-          INNER JOIN measurement_type mt on mt.id = ri.measurement_type_id
-          INNER JOIN ingredient i on i.id = ri.ingredient_id
+          LEFT OUTER JOIN recipe_ingredient ri on ri.recipe_id = r.id
+          LEFT OUTER JOIN measurement_type mt on mt.id = ri.measurement_type_id
+          LEFT OUTER JOIN ingredient i on i.id = ri.ingredient_id
+          LEFT OUTER JOIN recipe_instruction r_in on r_in.recipe_id = r.id
+          LEFT OUTER JOIN instruction instr on instr.id = r_in.instruction_id
         WHERE
           r.id = #{id}
     </select>
 
+    <select id="getAllRecipes" resultMap="RecipeMap">
+        SELECT
+          r.id as recipe_id,
+          r.name as recipe_name,
+          ri.measurement_amount as measurement_amount,
+          mt.name as mt_name, mt.abbreviation,
+          i.name as i_name,
+          r_in.instruction_number as instruction_number,
+          instr.text as in_text
+        FROM
+          recipe r
+          LEFT OUTER JOIN recipe_ingredient ri on ri.recipe_id = r.id
+          LEFT OUTER JOIN measurement_type mt on mt.id = ri.measurement_type_id
+          LEFT OUTER JOIN ingredient i on i.id = ri.ingredient_id
+          LEFT OUTER JOIN recipe_instruction r_in on r_in.recipe_id = r.id
+          LEFT OUTER JOIN instruction instr on instr.id = r_in.instruction_id
+    </select>
+
     <resultMap id="RecipeMap" type="cookbook.domain.Recipe">
+        <id property="id" column="recipe_id"/>
         <result property="name" column="recipe_name" />
         <collection property="ingredients" ofType="cookbook.domain.RecipeIngredient">
             <result property="measurementAmount" column="measurement_amount"/>
@@ -28,6 +53,12 @@
             <association property="measurementType" javaType="cookbook.domain.MeasurementType">
                 <result property="name" column="mt_name" />
                 <result property="abbreviation" column="abbreviation" />
+            </association>
+        </collection>
+        <collection property="instructions" ofType="cookbook.domain.RecipeInstruction">
+            <result property="instruction_number" column="instruction_number"></result>
+            <association property="instruction" javaType="cookbook.domain.Instruction">
+                <result property="text" column="in_text"></result>
             </association>
         </collection>
     </resultMap>

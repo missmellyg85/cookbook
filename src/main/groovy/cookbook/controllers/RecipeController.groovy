@@ -2,7 +2,6 @@ package cookbook.controllers
 
 import cookbook.daos.CookbookDao
 import cookbook.domain.Recipe
-import cookbook.domain.RecipeIngredient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -16,10 +15,10 @@ class RecipeController {
         dao.getRecipe(id)
     }
 
-//    @RequestMapping(value = "/all", method = RequestMethod.GET)
-//    public List<Recipe> getAllRecipes() {
-//        dao.getAllRecipes()
-//    }
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<Recipe> getAllRecipes() {
+        dao.getAllRecipes()
+    }
 //
 //    @RequestMapping(method = RequestMethod.POST)
 //    @ResponseStatus(HttpStatus.CREATED)

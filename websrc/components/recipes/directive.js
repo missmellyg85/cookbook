@@ -6,6 +6,6 @@ export default function RecipesComponent() {
     replace: false,
     template: require('./template.html'),
     controller,
-    controllerAs: 'recipeCtrl'
+    controllerAs: 'recipesCtrl'
   }
 }
