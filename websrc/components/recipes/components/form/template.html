@@ -1,0 +1,44 @@
+<section>
+    <h1>Add a New Recipe</h1>
+
+    <form ng-submit="newRecipeCtrl.submit()">
+        <label>Title</label>
+        <input type="text" ng-model="newRecipeCtrl.newRecipe.name">
+
+        <p>Ingredients</p>
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Measurement</th>
+                <th>Ingredient</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="i in newRecipeCtrl.newRecipe.ingredients">
+                <td><input type="text" ng-model="i.amount"></td>
+                <td><input type="text" ng-model="i.measurementType.name"></td>
+                <td><input type="text" ng-model="i.ingredient.name"></td>
+                <td><span ng-if="$last" ng-click="newRecipeCtrl.addIngredient()">Add More</span></td>
+            </tr>
+        </table>
+
+        <p>Instructions</p>
+        <table>
+            <tr>
+                <th></th>
+                <th>Instruction Text</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="i in newRecipeCtrl.newRecipe.instructions">
+                <td ng-init="i.instruction_number=$index+1">{{$index+1}}</td>
+                <td>
+                    <textarea type="text" ng-model="i.instruction.text"></textarea>
+                </td>
+                <td><span ng-if="$last" ng-click="newRecipeCtrl.addInstruction()">Add More</span></td>
+            </tr>
+        </table>
+
+        <button type="submit">Submit Recipe</button>
+    </form>
+
+    [{{newRecipeCtrl.newRecipe}}]
+</section>

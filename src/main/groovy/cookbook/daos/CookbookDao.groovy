@@ -1,6 +1,7 @@
 package cookbook.daos
 
 import cookbook.domain.Recipe
+import org.apache.ibatis.annotations.Insert
 import org.apache.ibatis.annotations.Param
 
 public interface CookbookDao {
@@ -9,4 +10,5 @@ public interface CookbookDao {
 
     public List<Recipe> getAllRecipes()
 
+    
 }

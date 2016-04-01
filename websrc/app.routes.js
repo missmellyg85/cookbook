@@ -17,4 +17,10 @@ export default function routing($stateProvider, $urlRouterProvider) {
 				page: { template: '<recipe-component/>' }
 			}
 		})
+		.state('newRecipe', {
+			url: '/newRecipe',
+			views: {
+				page: { template: '<recipe-form-component/>'}
+			}
+		})
 }

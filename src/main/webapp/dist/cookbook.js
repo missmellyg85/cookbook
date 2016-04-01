@@ -67,9 +67,11 @@
 
 	__webpack_require__(6);
 
+	__webpack_require__(19);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('app', [_angularUiRouter2.default, 'app.recipes']).config(_app2.default);
+	_angular2.default.module('app', [_angularUiRouter2.default, 'app.recipes', 'app.static-components']).config(_app2.default);
 
 /***/ },
 /* 2 */
@@ -35083,6 +35085,11 @@
 			views: {
 				page: { template: '<recipe-component/>' }
 			}
+		}).state('newRecipe', {
+			url: '/newRecipe',
+			views: {
+				page: { template: '<recipe-form-component/>' }
+			}
 		});
 	}
 
@@ -35098,6 +35105,8 @@
 
 	__webpack_require__(11);
 
+	__webpack_require__(15);
+
 	var _directive = __webpack_require__(7);
 
 	var _directive2 = _interopRequireDefault(_directive);
@@ -35108,7 +35117,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = angular.module('app.recipes', ['app.recipes.recipe']).service('recipeService', _service2.default).directive('recipesComponent', _directive2.default);
+	exports.default = angular.module('app.recipes', ['app.recipes.recipe', 'app.recipes.form']).service('recipeService', _service2.default).directive('recipesComponent', _directive2.default);
 
 /***/ },
 /* 7 */
@@ -35182,7 +35191,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>{{recipesCtrl.title}}</h1>\n\n<ul>\n    <li ng-repeat=\"recipe in recipesCtrl.recipes\"><a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a></li>\n</ul>";
+	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul>\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\"><a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a></li>\n    </ul>\n</section>";
 
 /***/ },
 /* 10 */
@@ -35215,10 +35224,12 @@
 			value: function getRecipe(id) {
 				return this.$http.get('http://localhost:8080/recipe/' + id);
 			}
+		}, {
+			key: 'createRecipe',
+			value: function createRecipe(recipe) {
+				return this.$http.post('http://localhost:8080/recipe', recipe);
+			}
 
-			//createRecipe(recipe) {
-			//	return this.$http.post('http://localhost:8080/recipe', recipe);
-			//}
 			//
 			//deleteRecipe(id) {
 			//	return this.$http.delete(`http://localhost:8080/recipe/${id}`)
@@ -35324,6 +35335,238 @@
 /***/ function(module, exports) {
 
 	module.exports = "<section>\n    <h1>{{recipeCtrl.recipe.name}}</h1>\n\n    <div>\n        <h3>Ingredients</h3>\n        <ul>\n            <li ng-repeat=\"i in recipeCtrl.recipe.ingredients\">\n                {{i.measurementAmount}} {{i.measurementType.name}} {{i.ingredient.name}}\n            </li>\n        </ul>\n\n        <h3>Instructions</h3>\n        <ol>\n            <li ng-repeat=\"i in recipeCtrl.recipe.instructions | orderBy : i.instruction_number\">\n                {{i.instruction.text}}\n            </li>\n        </ol>\n    </div>\n</section>";
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _directive = __webpack_require__(16);
+
+	var _directive2 = _interopRequireDefault(_directive);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = angular.module('app.recipes.form', []).directive('recipeFormComponent', _directive2.default);
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = RecipeFormComponent;
+
+	var _controller = __webpack_require__(17);
+
+	var _controller2 = _interopRequireDefault(_controller);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function RecipeFormComponent() {
+		return {
+			restrict: 'EA',
+			replace: false,
+			template: __webpack_require__(18),
+			controller: _controller2.default,
+			controllerAs: 'newRecipeCtrl'
+		};
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Controller = function () {
+		function Controller(recipeService) {
+			_classCallCheck(this, Controller);
+
+			this.service = recipeService;
+			this.blankRecipeIngredient = { amount: "", measurementType: { name: "", abbreviation: "" }, ingredient: { name: "" } };
+			this.blankRecipeInstruction = { instruction_number: "", instruction: { text: "" } };
+			this.blankRecipe = {
+				name: "",
+				ingredients: [angular.copy(this.blankRecipeIngredient)],
+				instructions: [angular.copy(this.blankRecipeInstruction)]
+			};
+			this.newRecipe = angular.copy(this.blankRecipe);
+		}
+
+		_createClass(Controller, [{
+			key: "addIngredient",
+			value: function addIngredient() {
+				this.newRecipe.ingredients.push(angular.copy(this.blankRecipeIngredient));
+			}
+		}, {
+			key: "addInstruction",
+			value: function addInstruction() {
+				this.newRecipe.instructions.push(angular.copy(this.blankRecipeInstruction));
+			}
+		}, {
+			key: "submit",
+			value: function submit() {
+				console.log("recipe", this.newRecipe);
+			}
+		}]);
+
+		return Controller;
+	}();
+
+	Controller.$inject = ['recipeService'];
+
+	exports.default = Controller;
+
+	//{
+	//	"name":"Grilled Cheese",
+	//	"ingredients":[
+	//	{
+	//		"amount":"2",
+	//		"measurementType":{
+	//			"name":"pieces",
+	//			"abbreviation":""
+	//		},
+	//		"ingredient":{
+	//			"name":"bread"
+	//		}
+	//	},
+	//	{
+	//		"amount":"1",
+	//		"measurementType":{
+	//			"name":"teaspoon",
+	//			"abbreviation":""
+	//		},
+	//		"ingredient":{
+	//			"name":"mayonnaise"
+	//		}
+	//	},
+	//	{
+	//		"amount":"2",
+	//		"measurementType":{
+	//			"name":"slices",
+	//			"abbreviation":""
+	//		},
+	//		"ingredient":{
+	//			"name":"American cheese"
+	//		}
+	//	},
+	//	{
+	//		"amount":"2",
+	//		"measurementType":{
+	//			"name":"tablesoon",
+	//			"abbreviation":""
+	//		},
+	//		"ingredient":{
+	//			"name":"butter"
+	//		}
+	//	}
+	//],
+	//	"instructions":[
+	//	{
+	//		"instruction_number":1,
+	//		"instruction":{
+	//			"text":"Heat a skillet on the stove at medium heat"
+	//		}
+	//	},
+	//	{
+	//		"instruction_number":2,
+	//		"instruction":{
+	//			"text":"Spread butter on one side of each piece of bread"
+	//		}
+	//	},
+	//	{
+	//		"instruction_number":3,
+	//		"instruction":{
+	//			"text":"Spread mayo between cheese"
+	//		}
+	//	},
+	//	{
+	//		"instruction_number":4,
+	//		"instruction":{
+	//			"text":"Put it all together and cook it"
+	//		}
+	//	}
+	//]
+	//}
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	module.exports = "<section>\n    <h1>Add a New Recipe</h1>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n        <label>Title</label>\n        <input type=\"text\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n\n        <p>Ingredients</p>\n        <table>\n            <tr>\n                <th>Amount</th>\n                <th>Measurement</th>\n                <th>Ingredient</th>\n                <th></th>\n            </tr>\n            <tr ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\">\n                <td><input type=\"text\" ng-model=\"i.amount\"></td>\n                <td><input type=\"text\" ng-model=\"i.measurementType.name\"></td>\n                <td><input type=\"text\" ng-model=\"i.ingredient.name\"></td>\n                <td><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\">Add More</span></td>\n            </tr>\n        </table>\n\n        <p>Instructions</p>\n        <table>\n            <tr>\n                <th></th>\n                <th>Instruction Text</th>\n                <th></th>\n            </tr>\n            <tr ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\">\n                <td ng-init=\"i.instruction_number=$index+1\">{{$index+1}}</td>\n                <td>\n                    <textarea type=\"text\" ng-model=\"i.instruction.text\"></textarea>\n                </td>\n                <td><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\">Add More</span></td>\n            </tr>\n        </table>\n\n        <button type=\"submit\">Submit Recipe</button>\n    </form>\n\n    [{{newRecipeCtrl.newRecipe}}]\n</section>";
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	__webpack_require__(20);
+
+	exports.default = angular.module('app.static-components', ['app.static-components.navigation']);
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _directive = __webpack_require__(21);
+
+	var _directive2 = _interopRequireDefault(_directive);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = angular.module('app.static-components.navigation', []).directive('navigationComponent', _directive2.default);
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = NavigationComponent;
+	function NavigationComponent() {
+		return {
+			restrict: 'EA',
+			replace: false,
+			template: __webpack_require__(22)
+		};
+	}
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	module.exports = "<ul>\n\t<li><a ui-sref=\"recipes\">Home</a></li>\n\t<li><a ui-sref=\"newRecipe\">Add New Recipe</a></li>\n</ul>";
 
 /***/ }
 /******/ ]);
