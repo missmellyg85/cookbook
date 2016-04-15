@@ -20,7 +20,7 @@ class Controller {
 	}
 
 	submit() {
-		console.log("recipe",this.newRecipe);
+		this.service.createRecipe(this.newRecipe);
 	}
 }
 
