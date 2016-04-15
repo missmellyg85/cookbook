@@ -1,8 +1,8 @@
 class Controller {
 	constructor(recipeService) {
 		this.service = recipeService;
-		this.blankRecipeIngredient = {amount:"", measurementType:{name:"", abbreviation:""}, ingredient:{name:""}};
-		this.blankRecipeInstruction = {instruction_number:"", instruction: {text:""}};
+		this.blankRecipeIngredient = {measurementAmount:"", measurementType:{name:"", abbreviation:""}, ingredient:{name:""}};
+		this.blankRecipeInstruction = {instructionNumber:"", instruction: {text:""}};
 		this.blankRecipe = {
 			name: "",
 			ingredients: [angular.copy(this.blankRecipeIngredient)],

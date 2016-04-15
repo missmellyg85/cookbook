@@ -56,7 +56,7 @@
             </association>
         </collection>
         <collection property="instructions" ofType="cookbook.domain.RecipeInstruction">
-            <result property="instruction_number" column="instruction_number"></result>
+            <result property="instructionNumber" column="instruction_number"></result>
             <association property="instruction" javaType="cookbook.domain.Instruction">
                 <result property="text" column="in_text"></result>
             </association>

@@ -11,7 +11,7 @@
 
         <h3>Instructions</h3>
         <ol>
-            <li ng-repeat="i in recipeCtrl.recipe.instructions | orderBy : i.instruction_number">
+            <li ng-repeat="i in recipeCtrl.recipe.instructions | orderBy : i.instructionNumber">
                 {{i.instruction.text}}
             </li>
         </ol>

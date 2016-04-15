@@ -14,7 +14,7 @@
                 <th></th>
             </tr>
             <tr ng-repeat="i in newRecipeCtrl.newRecipe.ingredients">
-                <td><input type="text" ng-model="i.amount"></td>
+                <td><input type="text" ng-model="i.measurementAmount"></td>
                 <td><input type="text" ng-model="i.measurementType.name"></td>
                 <td><input type="text" ng-model="i.ingredient.name"></td>
                 <td><span ng-if="$last" ng-click="newRecipeCtrl.addIngredient()">Add More</span></td>
@@ -29,7 +29,7 @@
                 <th></th>
             </tr>
             <tr ng-repeat="i in newRecipeCtrl.newRecipe.instructions">
-                <td ng-init="i.instruction_number=$index+1">{{$index+1}}</td>
+                <td ng-init="i.instructionNumber=$index+1">{{$index+1}}</td>
                 <td>
                     <textarea type="text" ng-model="i.instruction.text"></textarea>
                 </td>

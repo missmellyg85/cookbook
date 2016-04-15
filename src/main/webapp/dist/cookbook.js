@@ -35103,15 +35103,15 @@
 		value: true
 	});
 
+	__webpack_require__(7);
+
 	__webpack_require__(11);
 
-	__webpack_require__(15);
-
-	var _directive = __webpack_require__(7);
+	var _directive = __webpack_require__(15);
 
 	var _directive2 = _interopRequireDefault(_directive);
 
-	var _service = __webpack_require__(10);
+	var _service = __webpack_require__(18);
 
 	var _service2 = _interopRequireDefault(_service);
 
@@ -35126,135 +35126,10 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = RecipesComponent;
-
-	var _controller = __webpack_require__(8);
-
-	var _controller2 = _interopRequireDefault(_controller);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function RecipesComponent() {
-	  return {
-	    restrict: 'EA',
-	    replace: false,
-	    template: __webpack_require__(9),
-	    controller: _controller2.default,
-	    controllerAs: 'recipesCtrl'
-	  };
-	}
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var Controller = function () {
-		function Controller(recipeService) {
-			_classCallCheck(this, Controller);
-
-			this.service = recipeService;
-			this.title = "Recipes Page";
-			this.loadRecipes();
-		}
-
-		_createClass(Controller, [{
-			key: "loadRecipes",
-			value: function loadRecipes() {
-				var _this = this;
-
-				this.service.getAllRecipes().then(function (response) {
-					_this.recipes = response.data;
-				});
-			}
-		}]);
-
-		return Controller;
-	}();
-
-	Controller.$inject = ['recipeService'];
-
-	exports.default = Controller;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul>\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\"><a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a></li>\n    </ul>\n</section>";
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var Service = function () {
-		function Service($http) {
-			_classCallCheck(this, Service);
-
-			this.$http = $http;
-		}
-
-		_createClass(Service, [{
-			key: 'getAllRecipes',
-			value: function getAllRecipes() {
-				return this.$http.get('http://localhost:8080/recipe/all');
-			}
-		}, {
-			key: 'getRecipe',
-			value: function getRecipe(id) {
-				return this.$http.get('http://localhost:8080/recipe/' + id);
-			}
-		}, {
-			key: 'createRecipe',
-			value: function createRecipe(recipe) {
-				return this.$http.post('http://localhost:8080/recipe', recipe);
-			}
-
-			//
-			//deleteRecipe(id) {
-			//	return this.$http.delete(`http://localhost:8080/recipe/${id}`)
-			//}
-
-		}]);
-
-		return Service;
-	}();
-
-	exports.default = Service;
-
-	Service.$inject = ['$http'];
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _directive = __webpack_require__(12);
+	var _directive = __webpack_require__(8);
 
 	var _directive2 = _interopRequireDefault(_directive);
 
@@ -35263,7 +35138,7 @@
 	exports.default = angular.module('app.recipes.recipe', []).directive('recipeComponent', _directive2.default);
 
 /***/ },
-/* 12 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35273,7 +35148,7 @@
 	});
 	exports.default = RecipeComponent;
 
-	var _controller = __webpack_require__(13);
+	var _controller = __webpack_require__(9);
 
 	var _controller2 = _interopRequireDefault(_controller);
 
@@ -35283,14 +35158,14 @@
 		return {
 			restrict: 'EA',
 			replace: false,
-			template: __webpack_require__(14),
+			template: __webpack_require__(10),
 			controller: _controller2.default,
 			controllerAs: 'recipeCtrl'
 		};
 	}
 
 /***/ },
-/* 13 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35331,13 +35206,13 @@
 	exports.default = Controller;
 
 /***/ },
-/* 14 */
+/* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>{{recipeCtrl.recipe.name}}</h1>\n\n    <div>\n        <h3>Ingredients</h3>\n        <ul>\n            <li ng-repeat=\"i in recipeCtrl.recipe.ingredients\">\n                {{i.measurementAmount}} {{i.measurementType.name}} {{i.ingredient.name}}\n            </li>\n        </ul>\n\n        <h3>Instructions</h3>\n        <ol>\n            <li ng-repeat=\"i in recipeCtrl.recipe.instructions | orderBy : i.instruction_number\">\n                {{i.instruction.text}}\n            </li>\n        </ol>\n    </div>\n</section>";
+	module.exports = "<section>\n    <h1>{{recipeCtrl.recipe.name}}</h1>\n\n    <div>\n        <h3>Ingredients</h3>\n        <ul>\n            <li ng-repeat=\"i in recipeCtrl.recipe.ingredients\">\n                {{i.measurementAmount}} {{i.measurementType.name}} {{i.ingredient.name}}\n            </li>\n        </ul>\n\n        <h3>Instructions</h3>\n        <ol>\n            <li ng-repeat=\"i in recipeCtrl.recipe.instructions | orderBy : i.instructionNumber\">\n                {{i.instruction.text}}\n            </li>\n        </ol>\n    </div>\n</section>";
 
 /***/ },
-/* 15 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35346,7 +35221,7 @@
 		value: true
 	});
 
-	var _directive = __webpack_require__(16);
+	var _directive = __webpack_require__(12);
 
 	var _directive2 = _interopRequireDefault(_directive);
 
@@ -35355,7 +35230,7 @@
 	exports.default = angular.module('app.recipes.form', []).directive('recipeFormComponent', _directive2.default);
 
 /***/ },
-/* 16 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35365,7 +35240,7 @@
 	});
 	exports.default = RecipeFormComponent;
 
-	var _controller = __webpack_require__(17);
+	var _controller = __webpack_require__(13);
 
 	var _controller2 = _interopRequireDefault(_controller);
 
@@ -35375,14 +35250,14 @@
 		return {
 			restrict: 'EA',
 			replace: false,
-			template: __webpack_require__(18),
+			template: __webpack_require__(14),
 			controller: _controller2.default,
 			controllerAs: 'newRecipeCtrl'
 		};
 	}
 
 /***/ },
-/* 17 */
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -35400,8 +35275,8 @@
 			_classCallCheck(this, Controller);
 
 			this.service = recipeService;
-			this.blankRecipeIngredient = { amount: "", measurementType: { name: "", abbreviation: "" }, ingredient: { name: "" } };
-			this.blankRecipeInstruction = { instruction_number: "", instruction: { text: "" } };
+			this.blankRecipeIngredient = { measurementAmount: "", measurementType: { name: "", abbreviation: "" }, ingredient: { name: "" } };
+			this.blankRecipeInstruction = { instructionNumber: "", instruction: { text: "" } };
 			this.blankRecipe = {
 				name: "",
 				ingredients: [angular.copy(this.blankRecipeIngredient)],
@@ -35507,10 +35382,135 @@
 	//}
 
 /***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	module.exports = "<section>\n    <h1>Add a New Recipe</h1>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n        <label>Title</label>\n        <input type=\"text\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n\n        <p>Ingredients</p>\n        <table>\n            <tr>\n                <th>Amount</th>\n                <th>Measurement</th>\n                <th>Ingredient</th>\n                <th></th>\n            </tr>\n            <tr ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\">\n                <td><input type=\"text\" ng-model=\"i.measurementAmount\"></td>\n                <td><input type=\"text\" ng-model=\"i.measurementType.name\"></td>\n                <td><input type=\"text\" ng-model=\"i.ingredient.name\"></td>\n                <td><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\">Add More</span></td>\n            </tr>\n        </table>\n\n        <p>Instructions</p>\n        <table>\n            <tr>\n                <th></th>\n                <th>Instruction Text</th>\n                <th></th>\n            </tr>\n            <tr ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\">\n                <td ng-init=\"i.instructionNumber=$index+1\">{{$index+1}}</td>\n                <td>\n                    <textarea type=\"text\" ng-model=\"i.instruction.text\"></textarea>\n                </td>\n                <td><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\">Add More</span></td>\n            </tr>\n        </table>\n\n        <button type=\"submit\">Submit Recipe</button>\n    </form>\n\n    [{{newRecipeCtrl.newRecipe}}]\n</section>";
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = RecipesComponent;
+
+	var _controller = __webpack_require__(16);
+
+	var _controller2 = _interopRequireDefault(_controller);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function RecipesComponent() {
+	  return {
+	    restrict: 'EA',
+	    replace: false,
+	    template: __webpack_require__(17),
+	    controller: _controller2.default,
+	    controllerAs: 'recipesCtrl'
+	  };
+	}
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Controller = function () {
+		function Controller(recipeService) {
+			_classCallCheck(this, Controller);
+
+			this.service = recipeService;
+			this.title = "Recipes Page";
+			this.loadRecipes();
+		}
+
+		_createClass(Controller, [{
+			key: "loadRecipes",
+			value: function loadRecipes() {
+				var _this = this;
+
+				this.service.getAllRecipes().then(function (response) {
+					_this.recipes = response.data;
+				});
+			}
+		}]);
+
+		return Controller;
+	}();
+
+	Controller.$inject = ['recipeService'];
+
+	exports.default = Controller;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul>\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\"><a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a></li>\n    </ul>\n</section>";
+
+/***/ },
 /* 18 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>Add a New Recipe</h1>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n        <label>Title</label>\n        <input type=\"text\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n\n        <p>Ingredients</p>\n        <table>\n            <tr>\n                <th>Amount</th>\n                <th>Measurement</th>\n                <th>Ingredient</th>\n                <th></th>\n            </tr>\n            <tr ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\">\n                <td><input type=\"text\" ng-model=\"i.amount\"></td>\n                <td><input type=\"text\" ng-model=\"i.measurementType.name\"></td>\n                <td><input type=\"text\" ng-model=\"i.ingredient.name\"></td>\n                <td><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\">Add More</span></td>\n            </tr>\n        </table>\n\n        <p>Instructions</p>\n        <table>\n            <tr>\n                <th></th>\n                <th>Instruction Text</th>\n                <th></th>\n            </tr>\n            <tr ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\">\n                <td ng-init=\"i.instruction_number=$index+1\">{{$index+1}}</td>\n                <td>\n                    <textarea type=\"text\" ng-model=\"i.instruction.text\"></textarea>\n                </td>\n                <td><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\">Add More</span></td>\n            </tr>\n        </table>\n\n        <button type=\"submit\">Submit Recipe</button>\n    </form>\n\n    [{{newRecipeCtrl.newRecipe}}]\n</section>";
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Service = function () {
+		function Service($http) {
+			_classCallCheck(this, Service);
+
+			this.$http = $http;
+		}
+
+		_createClass(Service, [{
+			key: 'getAllRecipes',
+			value: function getAllRecipes() {
+				return this.$http.get('http://localhost:8080/recipe/all');
+			}
+		}, {
+			key: 'getRecipe',
+			value: function getRecipe(id) {
+				return this.$http.get('http://localhost:8080/recipe/' + id);
+			}
+		}, {
+			key: 'createRecipe',
+			value: function createRecipe(recipe) {
+				return this.$http.post('http://localhost:8080/recipe', recipe);
+			}
+
+			//
+			//deleteRecipe(id) {
+			//	return this.$http.delete(`http://localhost:8080/recipe/${id}`)
+			//}
+
+		}]);
+
+		return Service;
+	}();
+
+	exports.default = Service;
+
+	Service.$inject = ['$http'];
 
 /***/ },
 /* 19 */
