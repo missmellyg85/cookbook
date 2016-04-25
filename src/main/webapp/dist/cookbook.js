@@ -67,7 +67,7 @@
 
 	__webpack_require__(6);
 
-	__webpack_require__(19);
+	__webpack_require__(21);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35107,11 +35107,11 @@
 
 	__webpack_require__(11);
 
-	var _directive = __webpack_require__(15);
+	var _directive = __webpack_require__(17);
 
 	var _directive2 = _interopRequireDefault(_directive);
 
-	var _service = __webpack_require__(18);
+	var _service = __webpack_require__(20);
 
 	var _service2 = _interopRequireDefault(_service);
 
@@ -35225,6 +35225,8 @@
 
 	var _directive2 = _interopRequireDefault(_directive);
 
+	__webpack_require__(15);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = angular.module('app.recipes.form', []).directive('recipeFormComponent', _directive2.default);
@@ -35317,6 +35319,13 @@
 
 /***/ },
 /* 15 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 16 */,
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35326,7 +35335,7 @@
 	});
 	exports.default = RecipesComponent;
 
-	var _controller = __webpack_require__(16);
+	var _controller = __webpack_require__(18);
 
 	var _controller2 = _interopRequireDefault(_controller);
 
@@ -35336,14 +35345,14 @@
 	  return {
 	    restrict: 'EA',
 	    replace: false,
-	    template: __webpack_require__(17),
+	    template: __webpack_require__(19),
 	    controller: _controller2.default,
 	    controllerAs: 'recipesCtrl'
 	  };
 	}
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -35384,13 +35393,13 @@
 	exports.default = Controller;
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul class=\"list-group\">\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\" class=\"list-group-item\"><a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a></li>\n    </ul>\n</section>";
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35441,7 +35450,7 @@
 	Service.$inject = ['$http'];
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35450,12 +35459,12 @@
 		value: true
 	});
 
-	__webpack_require__(20);
+	__webpack_require__(22);
 
 	exports.default = angular.module('app.static-components', ['app.static-components.navigation']);
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35464,7 +35473,7 @@
 		value: true
 	});
 
-	var _directive = __webpack_require__(21);
+	var _directive = __webpack_require__(23);
 
 	var _directive2 = _interopRequireDefault(_directive);
 
@@ -35473,7 +35482,7 @@
 	exports.default = angular.module('app.static-components.navigation', []).directive('navigationComponent', _directive2.default);
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35486,12 +35495,12 @@
 		return {
 			restrict: 'EA',
 			replace: false,
-			template: __webpack_require__(22)
+			template: __webpack_require__(24)
 		};
 	}
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = "<nav class=\"nav-inline\">\n\t<a ui-sref=\"recipes\" class=\"nav-link\">Home</a>\n\t<a ui-sref=\"newRecipe\" class=\"nav-link\">Add New Recipe</a>\n</nav>";

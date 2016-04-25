@@ -1,7 +1,8 @@
 var path = require('path');
 var node_modules_dir = path.join(__dirname, 'node_modules');
-//var css = require("!css!sass!./file.scss");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+var extractCSS = new ExtractTextPlugin('stylesheets/[name].css');
 
 module.exports = {
 	entry: ["./websrc/app.js"],
@@ -22,6 +23,10 @@ module.exports = {
 
 			},
 			{
+				test: /\.scss$/,
+				loader: extractCSS.extract(['css','sass'])
+			},
+			{
 			  test: /\.html$/,
 			  loader: "html"
 			}
@@ -30,5 +35,6 @@ module.exports = {
 	resolve: {
 		extensions: ['', '.js']
 	},
+	plugins: [extractCSS],
 	watch: true
 }
