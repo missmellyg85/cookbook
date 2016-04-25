@@ -1,44 +1,40 @@
-<section>
+<section id="newRecipe">
     <h1>Add a New Recipe</h1>
 
     <form ng-submit="newRecipeCtrl.submit()">
-        <label>Title</label>
-        <input type="text" ng-model="newRecipeCtrl.newRecipe.name">
 
-        <p>Ingredients</p>
-        <table>
-            <tr>
-                <th>Amount</th>
-                <th>Measurement</th>
-                <th>Ingredient</th>
-                <th></th>
-            </tr>
-            <tr ng-repeat="i in newRecipeCtrl.newRecipe.ingredients">
-                <td><input type="text" ng-model="i.measurementAmount"></td>
-                <td><input type="text" ng-model="i.measurementType.name"></td>
-                <td><input type="text" ng-model="i.ingredient.name"></td>
-                <td><span ng-if="$last" ng-click="newRecipeCtrl.addIngredient()">Add More</span></td>
-            </tr>
-        </table>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Title" ng-model="newRecipeCtrl.newRecipe.name">
+            </div>
+        </div>
 
-        <p>Instructions</p>
-        <table>
-            <tr>
-                <th></th>
-                <th>Instruction Text</th>
-                <th></th>
-            </tr>
-            <tr ng-repeat="i in newRecipeCtrl.newRecipe.instructions">
-                <td ng-init="i.instructionNumber=$index+1">{{$index+1}}</td>
-                <td>
-                    <textarea type="text" ng-model="i.instruction.text"></textarea>
-                </td>
-                <td><span ng-if="$last" ng-click="newRecipeCtrl.addInstruction()">Add More</span></td>
-            </tr>
-        </table>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Ingredients</label>
+            <div class="col-sm-10">
+                <div ng-repeat="i in newRecipeCtrl.newRecipe.ingredients" class="form-inline row ingredient">
+                    <div class="col-sm-3"><input type="text" ng-model="i.measurementAmount" class="form-control" placeholder="amount"></div>
+                    <div class="col-sm-3"><input type="text" ng-model="i.measurementType.name" class="form-control" placeholder="measurement"></div>
+                    <div class="col-sm-3"><input type="text" ng-model="i.ingredient.name" class="form-control" placeholder="ingredient name"></div>
+                    <div class="col-sm-3"><span ng-if="$last" ng-click="newRecipeCtrl.addIngredient()" class="btn btn-primary-outline">Add More</span></div>
+                </div>
+            </div>
+        </div>
 
-        <button type="submit">Submit Recipe</button>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Instructions</label>
+            <div class="col-sm-10">
+                <div ng-repeat="i in newRecipeCtrl.newRecipe.instructions" class="row instruction">
+                    <div class="col-sm-9">
+                        <textarea type="text" class="form-control" ng-model="i.instruction.text" placeholder="Step {{$index+1}}"></textarea>
+                    </div>
+                    <div class="col-sm-3"><span ng-if="$last" ng-click="newRecipeCtrl.addInstruction()" class="btn btn-primary-outline">Add More</span></div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Recipe</button>
     </form>
 
-    [{{newRecipeCtrl.newRecipe}}]
 </section>

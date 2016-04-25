@@ -17,7 +17,7 @@ class RecipeController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Recipe getRecipe(@PathVariable(value="id") int id) {
-        dao.getRecipe(id)
+        def result = dao.getRecipe(id)
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)

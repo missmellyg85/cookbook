@@ -8,10 +8,18 @@
         SELECT
           r.id as recipe_id,
           r.name as recipe_name,
+          ri.recipe_id as ri_recipe_id,
+          ri.ingredient_id as ri_ingredient_id,
           ri.measurement_amount as measurement_amount,
-          mt.name as mt_name, mt.abbreviation,
+          mt.id as mt_id,
+          mt.name as mt_name,
+          mt.abbreviation as mt_abbreviation,
+          i.id as i_id,
           i.name as i_name,
+          r_in.recipe_id as r_in_recipe_id,
+          r_in.instruction_id as r_in_instruction_id,
           r_in.instruction_number as instruction_number,
+          instr.id as in_id,
           instr.text as in_text
         FROM
           recipe r
@@ -28,10 +36,18 @@
         SELECT
           r.id as recipe_id,
           r.name as recipe_name,
+          ri.recipe_id as ri_recipe_id,
+          ri.ingredient_id as ri_ingredient_id,
           ri.measurement_amount as measurement_amount,
-          mt.name as mt_name, mt.abbreviation,
+          mt.id as mt_name,
+          mt.name as mt_name,
+          mt.abbreviation as mt_abbreviation,
+          i.id as i_id,
           i.name as i_name,
+          r_in.recipe_id as r_in_recipe_id,
+          r_in.instruction_id as r_in_instruction_id,
           r_in.instruction_number as instruction_number,
+          instr.id as in_id,
           instr.text as in_text
         FROM
           recipe r
@@ -46,18 +62,25 @@
         <id property="id" column="recipe_id"/>
         <result property="name" column="recipe_name" />
         <collection property="ingredients" ofType="cookbook.domain.RecipeIngredient">
+            <id property="recipeId" column="ri_recipe_id"/>
+            <id property="ingredientId" column="ri_ingredient_id"/>
             <result property="measurementAmount" column="measurement_amount"/>
             <association property="ingredient" javaType="cookbook.domain.Ingredient">
+                <id property="id" column="i_id"/>
                 <result property="name" column="i_name" />
             </association>
             <association property="measurementType" javaType="cookbook.domain.MeasurementType">
+                <id property="id" column="mt_id"/>
                 <result property="name" column="mt_name" />
-                <result property="abbreviation" column="abbreviation" />
+                <result property="abbreviation" column="mt_abbreviation" />
             </association>
         </collection>
         <collection property="instructions" ofType="cookbook.domain.RecipeInstruction">
+            <id property="recipeId" column="r_in_recipe_id"/>
+            <id property="instructionId" column="r_in_instruction_id"/>
             <result property="instructionNumber" column="instruction_number"></result>
             <association property="instruction" javaType="cookbook.domain.Instruction">
+                <id property="id" column="in_id"/>
                 <result property="text" column="in_text"></result>
             </association>
         </collection>

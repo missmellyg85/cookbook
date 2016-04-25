@@ -35209,7 +35209,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>{{recipeCtrl.recipe.name}}</h1>\n\n    <div>\n        <h3>Ingredients</h3>\n        <ul>\n            <li ng-repeat=\"i in recipeCtrl.recipe.ingredients\">\n                {{i.measurementAmount}} {{i.measurementType.name}} {{i.ingredient.name}}\n            </li>\n        </ul>\n\n        <h3>Instructions</h3>\n        <ol>\n            <li ng-repeat=\"i in recipeCtrl.recipe.instructions | orderBy : i.instructionNumber\">\n                {{i.instruction.text}}\n            </li>\n        </ol>\n    </div>\n</section>";
+	module.exports = "<section>\n    <h1>{{recipeCtrl.recipe.name}}</h1>\n    <div>\n        <h3>Ingredients</h3>\n        <ul>\n            <li ng-repeat=\"i in recipeCtrl.recipe.ingredients\">\n                {{i.measurementAmount}} {{i.measurementType.name}} {{i.ingredient.name}}\n            </li>\n        </ul>\n\n        <h3>Instructions</h3>\n        <ol>\n            <li ng-repeat=\"i in recipeCtrl.recipe.instructions | orderBy : i.instructionNumber\">\n                {{i.instruction.text}}\n            </li>\n        </ol>\n    </div>\n</section>";
 
 /***/ },
 /* 11 */
@@ -35309,83 +35309,11 @@
 
 	exports.default = Controller;
 
-	//{
-	//	"name":"Grilled Cheese",
-	//	"ingredients":[
-	//	{
-	//		"amount":"2",
-	//		"measurementType":{
-	//			"name":"pieces",
-	//			"abbreviation":""
-	//		},
-	//		"ingredient":{
-	//			"name":"bread"
-	//		}
-	//	},
-	//	{
-	//		"amount":"1",
-	//		"measurementType":{
-	//			"name":"teaspoon",
-	//			"abbreviation":""
-	//		},
-	//		"ingredient":{
-	//			"name":"mayonnaise"
-	//		}
-	//	},
-	//	{
-	//		"amount":"2",
-	//		"measurementType":{
-	//			"name":"slices",
-	//			"abbreviation":""
-	//		},
-	//		"ingredient":{
-	//			"name":"American cheese"
-	//		}
-	//	},
-	//	{
-	//		"amount":"2",
-	//		"measurementType":{
-	//			"name":"tablesoon",
-	//			"abbreviation":""
-	//		},
-	//		"ingredient":{
-	//			"name":"butter"
-	//		}
-	//	}
-	//],
-	//	"instructions":[
-	//	{
-	//		"instruction_number":1,
-	//		"instruction":{
-	//			"text":"Heat a skillet on the stove at medium heat"
-	//		}
-	//	},
-	//	{
-	//		"instruction_number":2,
-	//		"instruction":{
-	//			"text":"Spread butter on one side of each piece of bread"
-	//		}
-	//	},
-	//	{
-	//		"instruction_number":3,
-	//		"instruction":{
-	//			"text":"Spread mayo between cheese"
-	//		}
-	//	},
-	//	{
-	//		"instruction_number":4,
-	//		"instruction":{
-	//			"text":"Put it all together and cook it"
-	//		}
-	//	}
-	//]
-	//}
-
 /***/ },
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>Add a New Recipe</h1>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n        <label>Title</label>\n        <input type=\"text\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n\n        <p>Ingredients</p>\n        <table>\n            <tr>\n                <th>Amount</th>\n                <th>Measurement</th>\n                <th>Ingredient</th>\n                <th></th>\n            </tr>\n            <tr ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\">\n                <td><input type=\"text\" ng-model=\"i.measurementAmount\"></td>\n                <td><input type=\"text\" ng-model=\"i.measurementType.name\"></td>\n                <td><input type=\"text\" ng-model=\"i.ingredient.name\"></td>\n                <td><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\">Add More</span></td>\n            </tr>\n        </table>\n\n        <p>Instructions</p>\n        <table>\n            <tr>\n                <th></th>\n                <th>Instruction Text</th>\n                <th></th>\n            </tr>\n            <tr ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\">\n                <td ng-init=\"i.instructionNumber=$index+1\">{{$index+1}}</td>\n                <td>\n                    <textarea type=\"text\" ng-model=\"i.instruction.text\"></textarea>\n                </td>\n                <td><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\">Add More</span></td>\n            </tr>\n        </table>\n\n        <button type=\"submit\">Submit Recipe</button>\n    </form>\n\n    [{{newRecipeCtrl.newRecipe}}]\n</section>";
+	module.exports = "<section id=\"newRecipe\">\n    <h1>Add a New Recipe</h1>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Title</label>\n            <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Title\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Ingredients</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\" class=\"form-inline row ingredient\">\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.measurementAmount\" class=\"form-control\" placeholder=\"amount\"></div>\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.measurementType.name\" class=\"form-control\" placeholder=\"measurement\"></div>\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.ingredient.name\" class=\"form-control\" placeholder=\"ingredient name\"></div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Instructions</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\" class=\"row instruction\">\n                    <div class=\"col-sm-9\">\n                        <textarea type=\"text\" class=\"form-control\" ng-model=\"i.instruction.text\" placeholder=\"Step {{$index+1}}\"></textarea>\n                    </div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <button type=\"submit\" class=\"btn btn-primary\">Submit Recipe</button>\n    </form>\n\n</section>";
 
 /***/ },
 /* 15 */
@@ -35459,7 +35387,7 @@
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul>\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\"><a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a></li>\n    </ul>\n</section>";
+	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul class=\"list-group\">\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\" class=\"list-group-item\"><a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a></li>\n    </ul>\n</section>";
 
 /***/ },
 /* 18 */
@@ -35566,7 +35494,7 @@
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = "<ul>\n\t<li><a ui-sref=\"recipes\">Home</a></li>\n\t<li><a ui-sref=\"newRecipe\">Add New Recipe</a></li>\n</ul>";
+	module.exports = "<nav class=\"nav-inline\">\n\t<a ui-sref=\"recipes\" class=\"nav-link\">Home</a>\n\t<a ui-sref=\"newRecipe\" class=\"nav-link\">Add New Recipe</a>\n</nav>";
 
 /***/ }
 /******/ ]);

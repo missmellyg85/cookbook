@@ -1,5 +1,7 @@
 var path = require('path');
 var node_modules_dir = path.join(__dirname, 'node_modules');
+//var css = require("!css!sass!./file.scss");
+
 
 module.exports = {
 	entry: ["./websrc/app.js"],
@@ -17,6 +19,7 @@ module.exports = {
 					cacheDirectory: true,
 					presets: ['es2015']
 				}
+
 			},
 			{
 			  test: /\.html$/,
