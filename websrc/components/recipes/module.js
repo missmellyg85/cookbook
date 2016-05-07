@@ -10,4 +10,5 @@ export default angular.module('app.recipes',
 		'app.recipes.form'
 	])
 	.service('recipeService', RecipeService)
-    .directive('recipesComponent', RecipesComponent);
+    .directive('recipesComponent', RecipesComponent)
+	.name;
