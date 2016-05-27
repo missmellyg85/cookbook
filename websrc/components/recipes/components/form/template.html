@@ -34,6 +34,13 @@
             </div>
         </div>
 
+        <div class="alert alert-danger" role="alert" ng-show="newRecipeCtrl.error">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{newRecipeCtrl.error}}
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit Recipe</button>
     </form>
 

@@ -24,7 +24,7 @@ CREATE TABLE measurement_type (
 CREATE TABLE recipe_ingredient (
   recipe_id INTEGER references recipe ON DELETE CASCADE,
   ingredient_id INTEGER references ingredient,
-  measurement_amount SMALLINT,
+  measurement_amount TEXT,
   measurement_type_id INTEGER REFERENCES measurement_type
 );
 

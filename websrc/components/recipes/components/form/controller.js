@@ -20,7 +20,13 @@ class Controller {
 	}
 
 	submit() {
-		this.service.createRecipe(this.newRecipe);
+		this.service.createRecipe(this.newRecipe)
+		.then(response => {
+
+		})
+		.catch(error => {
+			this.error = error.data.message;
+		});
 	}
 }
 

@@ -4,6 +4,6 @@ class RecipeIngredient {
     int recipeId
     int ingredientId
     Ingredient ingredient
-    Double measurementAmount
+    String measurementAmount
     MeasurementType measurementType
 }
