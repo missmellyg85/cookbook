@@ -2,7 +2,6 @@ package cookbook.daos
 
 import cookbook.domain.Ingredient
 import cookbook.domain.Instruction
-import cookbook.domain.MeasurementType
 import cookbook.domain.Recipe
 import cookbook.domain.RecipeIngredient
 import cookbook.domain.RecipeInstruction
