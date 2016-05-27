@@ -21,7 +21,7 @@
             <label class="col-sm-2 form-control-label">Ingredients</label>
             <div class="col-sm-10">
                 <div ng-repeat="i in newRecipeCtrl.newRecipe.ingredients" class="form-inline row ingredient">
-                    <div class="col-sm-3"><input type="text" ng-model="i.measurementAmount" class="form-control" placeholder="amount"></div>
+                    <div class="col-sm-3"><input type="text" ng-model="i.measurementAmount" class="form-control" placeholder="amount" ng-focus="newRecipeCtrl.autoNewIngredient($last)"></div>
                     <div class="col-sm-3"><input type="text" ng-model="i.ingredient.name" class="form-control" placeholder="ingredient name"></div>
                     <div class="col-sm-3"><span ng-if="$last" ng-click="newRecipeCtrl.addIngredient()" class="btn btn-primary-outline">Add More</span></div>
                 </div>
@@ -33,7 +33,7 @@
             <div class="col-sm-10">
                 <div ng-repeat="i in newRecipeCtrl.newRecipe.instructions" class="row instruction">
                     <div class="col-sm-9">
-                        <textarea type="text" class="form-control" ng-model="i.instruction.text" placeholder="Step {{$index+1}}"></textarea>
+                        <textarea type="text" class="form-control" ng-model="i.instruction.text" placeholder="Step {{$index+1}}" ng-focus="newRecipeCtrl.autoNewInstruction($last)"></textarea>
                     </div>
                     <div class="col-sm-3"><span ng-if="$last" ng-click="newRecipeCtrl.addInstruction()" class="btn btn-primary-outline">Add More</span></div>
                 </div>

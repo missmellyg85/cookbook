@@ -4,6 +4,14 @@ class Controller {
 		this.resetRecipe();
 	}
 
+	autoNewIngredient(last) {
+		if(last) {this.addIngredient()}
+	}
+
+	autoNewInstruction(last) {
+		if(last) {this.addInstruction()}
+	}
+
 	addIngredient() {
 		this.newRecipe.ingredients.push(angular.copy(this.blankRecipeIngredient));
 	}
