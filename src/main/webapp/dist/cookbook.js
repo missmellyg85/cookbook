@@ -35281,14 +35281,7 @@
 			_classCallCheck(this, Controller);
 
 			this.service = recipeService;
-			this.blankRecipeIngredient = { measurementAmount: "", measurementType: { name: "", abbreviation: "" }, ingredient: { name: "" } };
-			this.blankRecipeInstruction = { instructionNumber: "", instruction: { text: "" } };
-			this.blankRecipe = {
-				name: "",
-				ingredients: [angular.copy(this.blankRecipeIngredient)],
-				instructions: [angular.copy(this.blankRecipeInstruction)]
-			};
-			this.newRecipe = angular.copy(this.blankRecipe);
+			this.resetRecipe();
 		}
 
 		_createClass(Controller, [{
@@ -35302,11 +35295,27 @@
 				this.newRecipe.instructions.push(angular.copy(this.blankRecipeInstruction));
 			}
 		}, {
+			key: "resetRecipe",
+			value: function resetRecipe() {
+				this.blankRecipeIngredient = { measurementAmount: "", ingredient: { name: "" } };
+				this.blankRecipeInstruction = { instructionNumber: "", instruction: { text: "" } };
+				this.blankRecipe = {
+					name: "",
+					ingredients: [angular.copy(this.blankRecipeIngredient)],
+					instructions: [angular.copy(this.blankRecipeInstruction)]
+				};
+				this.newRecipe = angular.copy(this.blankRecipe);
+			}
+		}, {
 			key: "submit",
 			value: function submit() {
 				var _this = this;
 
-				this.service.createRecipe(this.newRecipe).then(function (response) {}).catch(function (error) {
+				this.success = false;
+				this.service.createRecipe(this.newRecipe).then(function (response) {
+					_this.success = true;
+					_this.resetRecipe();
+				}).catch(function (error) {
 					_this.error = error.data.message;
 				});
 			}
@@ -35323,7 +35332,7 @@
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<section id=\"newRecipe\">\n    <h1>Add a New Recipe</h1>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Title</label>\n            <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Title\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Ingredients</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\" class=\"form-inline row ingredient\">\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.measurementAmount\" class=\"form-control\" placeholder=\"amount\"></div>\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.measurementType.name\" class=\"form-control\" placeholder=\"measurement\"></div>\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.ingredient.name\" class=\"form-control\" placeholder=\"ingredient name\"></div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Instructions</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\" class=\"row instruction\">\n                    <div class=\"col-sm-9\">\n                        <textarea type=\"text\" class=\"form-control\" ng-model=\"i.instruction.text\" placeholder=\"Step {{$index+1}}\"></textarea>\n                    </div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"alert alert-danger\" role=\"alert\" ng-show=\"newRecipeCtrl.error\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                <span aria-hidden=\"true\">&times;</span>\n            </button>\n            {{newRecipeCtrl.error}}\n        </div>\n\n        <button type=\"submit\" class=\"btn btn-primary\">Submit Recipe</button>\n    </form>\n\n</section>";
+	module.exports = "<section id=\"newRecipe\">\n    <h1>Add a New Recipe</h1>\n\n    <div class=\"alert alert-success alert-dismissible fade in\" role=\"alert\" ng-show=\"newRecipeCtrl.success\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n        </button>\n        <strong>Yay!</strong> Your recipe was added!\n    </div>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Title</label>\n            <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Title\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Ingredients</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\" class=\"form-inline row ingredient\">\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.measurementAmount\" class=\"form-control\" placeholder=\"amount\"></div>\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.ingredient.name\" class=\"form-control\" placeholder=\"ingredient name\"></div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Instructions</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\" class=\"row instruction\">\n                    <div class=\"col-sm-9\">\n                        <textarea type=\"text\" class=\"form-control\" ng-model=\"i.instruction.text\" placeholder=\"Step {{$index+1}}\"></textarea>\n                    </div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\" ng-show=\"newRecipeCtrl.error\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                <span aria-hidden=\"true\">&times;</span>\n            </button>\n            Oops! Something bad happened. Try again. If it doesn't work, take a screenshot and email Missy.\n        </div>\n\n        <button type=\"submit\" class=\"btn btn-primary\">Submit Recipe</button>\n    </form>\n\n</section>";
 
 /***/ },
 /* 15 */

@@ -15,7 +15,6 @@ class RecipeService {
         /*
             1. insert Recipe
             2. insert Ingredient(s)
-            3. insert Measurement Type(s)
             4. insert RecipeIngredient(s)
             5. insert Instruction(s)
             6. insert RecipeInstruction(s)
@@ -23,8 +22,7 @@ class RecipeService {
         dao.insertRecipe(recipe)
         recipe.ingredients.each { RecipeIngredient ri ->
             dao.insertIngredient(ri.ingredient)
-            dao.insertMeasurementType(ri.measurementType)
-            dao.insertRecipeIngredient(recipe.getId(), ri.ingredient.getId(), ri, ri.measurementType.getId())
+            dao.insertRecipeIngredient(recipe.getId(), ri.ingredient.getId(), ri)
         }
 
         recipe.instructions.each { RecipeInstruction ri ->

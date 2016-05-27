@@ -1,6 +1,13 @@
 <section id="newRecipe">
     <h1>Add a New Recipe</h1>
 
+    <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="newRecipeCtrl.success">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Yay!</strong> Your recipe was added!
+    </div>
+
     <form ng-submit="newRecipeCtrl.submit()">
 
         <div class="form-group row">
@@ -15,7 +22,6 @@
             <div class="col-sm-10">
                 <div ng-repeat="i in newRecipeCtrl.newRecipe.ingredients" class="form-inline row ingredient">
                     <div class="col-sm-3"><input type="text" ng-model="i.measurementAmount" class="form-control" placeholder="amount"></div>
-                    <div class="col-sm-3"><input type="text" ng-model="i.measurementType.name" class="form-control" placeholder="measurement"></div>
                     <div class="col-sm-3"><input type="text" ng-model="i.ingredient.name" class="form-control" placeholder="ingredient name"></div>
                     <div class="col-sm-3"><span ng-if="$last" ng-click="newRecipeCtrl.addIngredient()" class="btn btn-primary-outline">Add More</span></div>
                 </div>
@@ -34,11 +40,11 @@
             </div>
         </div>
 
-        <div class="alert alert-danger" role="alert" ng-show="newRecipeCtrl.error">
+        <div class="alert alert-danger alert-dismissible fade in" role="alert" ng-show="newRecipeCtrl.error">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            {{newRecipeCtrl.error}}
+            Oops! Something bad happened. Try again. If it doesn't work, take a screenshot and email Missy.
         </div>
 
         <button type="submit" class="btn btn-primary">Submit Recipe</button>

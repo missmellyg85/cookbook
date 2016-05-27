@@ -28,25 +28,18 @@ public interface CookbookDao {
     @Options(useGeneratedKeys=true, keyProperty="ingredient.id", keyColumn = "id")
     public int insertIngredient(@Param('ingredient') Ingredient ingredient)
 
-    @Insert('''INSERT into measurement_type (name, abbreviation)
-            values (#{measurementType.name}, #{measurementType.abbreviation})
-            ''')
-    @Options(useGeneratedKeys=true, keyProperty="measurementType.id", keyColumn = "id")
-    public int insertMeasurementType(@Param('measurementType') MeasurementType measurementType)
-
     @Insert('''INSERT into instruction (text)
             values (#{instruction.text})''')
     @Options(useGeneratedKeys=true, keyProperty="instruction.id", keyColumn = "id")
     public int insertInstruction(@Param('instruction') Instruction instruction)
 
     @Insert('''INSERT into recipe_ingredient
-            (recipe_id, ingredient_id, measurement_amount, measurement_type_id)
-            values (#{recipeId}, #{ingredientId}, #{recipeIngredient.measurementAmount}, #{measurementTypeId})''')
+            (recipe_id, ingredient_id, measurement_amount)
+            values (#{recipeId}, #{ingredientId}, #{recipeIngredient.measurementAmount})''')
     @Options(useGeneratedKeys=false)
     public void insertRecipeIngredient(@Param('recipeId') int recipeId,
                                        @Param('ingredientId') int ingredientId,
-                                       @Param('recipeIngredient') RecipeIngredient recipeIngredient,
-                                       @Param('measurementTypeId') int measurementTypeId)
+                                       @Param('recipeIngredient') RecipeIngredient recipeIngredient)
 
     @Insert('''INSERT into recipe_instruction
             (recipe_id, instruction_id, instruction_number)

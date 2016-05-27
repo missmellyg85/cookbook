@@ -8,11 +8,6 @@
     recipe_id
     ingredient_id
     measurement_amount
-    measurement_type_id
-= measurement_type =
-    id
-    name
-    abbreviation*
 = recipe_instruction =
     recipe_id
     instruction_id

@@ -5,5 +5,4 @@ class RecipeIngredient {
     int ingredientId
     Ingredient ingredient
     String measurementAmount
-    MeasurementType measurementType
 }
