@@ -5,6 +5,7 @@ import cookbook.domain.Instruction
 import cookbook.domain.Recipe
 import cookbook.domain.RecipeIngredient
 import cookbook.domain.RecipeInstruction
+import org.apache.ibatis.annotations.Delete
 import org.apache.ibatis.annotations.Insert
 import org.apache.ibatis.annotations.Options
 import org.apache.ibatis.annotations.Param
@@ -14,6 +15,9 @@ public interface CookbookDao {
     public Recipe getRecipe(@Param("id")int id)
 
     public List<Recipe> getAllRecipes()
+
+    @Delete('''DELETE from recipe where id = #{id}''')
+    public void deleteRecipe(@Param('id') Integer id)
 
     @Insert('''INSERT into recipe (name)
             values (#{recipe.name})

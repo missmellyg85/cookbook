@@ -21,13 +21,17 @@ class RecipeService {
          */
         dao.insertRecipe(recipe)
         recipe.ingredients.each { RecipeIngredient ri ->
-            dao.insertIngredient(ri.ingredient)
-            dao.insertRecipeIngredient(recipe.getId(), ri.ingredient.getId(), ri)
+            if(ri.ingredient.name) {
+                dao.insertIngredient(ri.ingredient)
+                dao.insertRecipeIngredient(recipe.getId(), ri.ingredient.getId(), ri)
+            }
         }
 
         recipe.instructions.each { RecipeInstruction ri ->
-            dao.insertInstruction(ri.instruction)
-            dao.insertRecipeInstruction(recipe.getId(), ri.instruction.getId(), ri)
+            if(ri.instruction.text) {
+                dao.insertInstruction(ri.instruction)
+                dao.insertRecipeInstruction(recipe.getId(), ri.instruction.getId(), ri)
+            }
         }
 
         return recipe.getId()

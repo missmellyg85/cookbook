@@ -31,8 +31,8 @@ class RecipeController {
         service.createRecipe(recipe)
     }
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public void deleteRecipe(@PathVariable(value = "id") int id) {
-//        dao.deleteRecipe(id)
-//    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteRecipe(@PathVariable(value = "id") int id) {
+        dao.deleteRecipe(id)
+    }
 }

@@ -4,8 +4,10 @@ class Controller {
 		this.resetRecipe();
 	}
 
-	autoNewIngredient(last) {
-		if(last) {this.addIngredient()}
+	autoNewIngredient(index) {
+		let end = this.newRecipe.ingredients.length-1;
+		let current = this.newRecipe.ingredients[end]
+		if(index == end && current.measurementAmount) {this.addIngredient()}
 	}
 
 	autoNewInstruction(last) {
