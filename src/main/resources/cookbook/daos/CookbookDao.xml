@@ -11,9 +11,6 @@
           ri.recipe_id as ri_recipe_id,
           ri.ingredient_id as ri_ingredient_id,
           ri.measurement_amount as measurement_amount,
-          mt.id as mt_id,
-          mt.name as mt_name,
-          mt.abbreviation as mt_abbreviation,
           i.id as i_id,
           i.name as i_name,
           r_in.recipe_id as r_in_recipe_id,
@@ -24,7 +21,6 @@
         FROM
           recipe r
           LEFT OUTER JOIN recipe_ingredient ri on ri.recipe_id = r.id
-          LEFT OUTER JOIN measurement_type mt on mt.id = ri.measurement_type_id
           LEFT OUTER JOIN ingredient i on i.id = ri.ingredient_id
           LEFT OUTER JOIN recipe_instruction r_in on r_in.recipe_id = r.id
           LEFT OUTER JOIN instruction instr on instr.id = r_in.instruction_id
@@ -39,9 +35,6 @@
           ri.recipe_id as ri_recipe_id,
           ri.ingredient_id as ri_ingredient_id,
           ri.measurement_amount as measurement_amount,
-          mt.id as mt_name,
-          mt.name as mt_name,
-          mt.abbreviation as mt_abbreviation,
           i.id as i_id,
           i.name as i_name,
           r_in.recipe_id as r_in_recipe_id,
@@ -52,7 +45,6 @@
         FROM
           recipe r
           LEFT OUTER JOIN recipe_ingredient ri on ri.recipe_id = r.id
-          LEFT OUTER JOIN measurement_type mt on mt.id = ri.measurement_type_id
           LEFT OUTER JOIN ingredient i on i.id = ri.ingredient_id
           LEFT OUTER JOIN recipe_instruction r_in on r_in.recipe_id = r.id
           LEFT OUTER JOIN instruction instr on instr.id = r_in.instruction_id
@@ -68,11 +60,6 @@
             <association property="ingredient" javaType="cookbook.domain.Ingredient">
                 <id property="id" column="i_id"/>
                 <result property="name" column="i_name" />
-            </association>
-            <association property="measurementType" javaType="cookbook.domain.MeasurementType">
-                <id property="id" column="mt_id"/>
-                <result property="name" column="mt_name" />
-                <result property="abbreviation" column="mt_abbreviation" />
             </association>
         </collection>
         <collection property="instructions" ofType="cookbook.domain.RecipeInstruction">

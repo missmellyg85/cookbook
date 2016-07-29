@@ -15,10 +15,9 @@ export default class Service {
 		return this.$http.post('http://localhost:8080/recipe', recipe);
 	}
 
-	//
-	//deleteRecipe(id) {
-	//	return this.$http.delete(`http://localhost:8080/recipe/${id}`)
-	//}
+	deleteRecipe(id) {
+		return this.$http.delete(`http://localhost:8080/recipe/${id}`)
+	}
 
 }
 

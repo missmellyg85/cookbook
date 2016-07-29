@@ -67,7 +67,7 @@
 
 	__webpack_require__(6);
 
-	__webpack_require__(21);
+	__webpack_require__(19);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35107,17 +35107,17 @@
 
 	__webpack_require__(11);
 
-	var _directive = __webpack_require__(17);
+	var _directive = __webpack_require__(15);
 
 	var _directive2 = _interopRequireDefault(_directive);
 
-	var _service = __webpack_require__(20);
+	var _service = __webpack_require__(18);
 
 	var _service2 = _interopRequireDefault(_service);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = angular.module('app.recipes', ['app.recipes.recipe', 'app.recipes.form']).service('recipeService', _service2.default).directive('recipesComponent', _directive2.default);
+	exports.default = angular.module('app.recipes', ['app.recipes.recipe', 'app.recipes.form']).service('recipeService', _service2.default).directive('recipesComponent', _directive2.default).name;
 
 /***/ },
 /* 7 */
@@ -35135,7 +35135,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = angular.module('app.recipes.recipe', []).directive('recipeComponent', _directive2.default);
+	exports.default = angular.module('app.recipes.recipe', []).directive('recipeComponent', _directive2.default).name;
 
 /***/ },
 /* 8 */
@@ -35225,11 +35225,15 @@
 
 	var _directive2 = _interopRequireDefault(_directive);
 
-	__webpack_require__(15);
+	var _controller = __webpack_require__(13);
+
+	var _controller2 = _interopRequireDefault(_controller);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = angular.module('app.recipes.form', []).directive('recipeFormComponent', _directive2.default);
+	//import './style.scss';
+
+	exports.default = angular.module('app.recipes.form', []).directive('recipeFormComponent', _directive2.default).controller('recipeFormController', _controller2.default).name;
 
 /***/ },
 /* 12 */
@@ -35277,17 +35281,26 @@
 			_classCallCheck(this, Controller);
 
 			this.service = recipeService;
-			this.blankRecipeIngredient = { measurementAmount: "", measurementType: { name: "", abbreviation: "" }, ingredient: { name: "" } };
-			this.blankRecipeInstruction = { instructionNumber: "", instruction: { text: "" } };
-			this.blankRecipe = {
-				name: "",
-				ingredients: [angular.copy(this.blankRecipeIngredient)],
-				instructions: [angular.copy(this.blankRecipeInstruction)]
-			};
-			this.newRecipe = angular.copy(this.blankRecipe);
+			this.resetRecipe();
 		}
 
 		_createClass(Controller, [{
+			key: "autoNewIngredient",
+			value: function autoNewIngredient(index) {
+				var end = this.newRecipe.ingredients.length - 1;
+				var current = this.newRecipe.ingredients[end];
+				if (index == end && current.measurementAmount) {
+					this.addIngredient();
+				}
+			}
+		}, {
+			key: "autoNewInstruction",
+			value: function autoNewInstruction(last) {
+				if (last) {
+					this.addInstruction();
+				}
+			}
+		}, {
 			key: "addIngredient",
 			value: function addIngredient() {
 				this.newRecipe.ingredients.push(angular.copy(this.blankRecipeIngredient));
@@ -35298,9 +35311,29 @@
 				this.newRecipe.instructions.push(angular.copy(this.blankRecipeInstruction));
 			}
 		}, {
+			key: "resetRecipe",
+			value: function resetRecipe() {
+				this.blankRecipeIngredient = { measurementAmount: "", ingredient: { name: "" } };
+				this.blankRecipeInstruction = { instructionNumber: "", instruction: { text: "" } };
+				this.blankRecipe = {
+					name: "",
+					ingredients: [angular.copy(this.blankRecipeIngredient)],
+					instructions: [angular.copy(this.blankRecipeInstruction)]
+				};
+				this.newRecipe = angular.copy(this.blankRecipe);
+			}
+		}, {
 			key: "submit",
 			value: function submit() {
-				this.service.createRecipe(this.newRecipe);
+				var _this = this;
+
+				this.success = false;
+				this.service.createRecipe(this.newRecipe).then(function (response) {
+					_this.success = true;
+					_this.resetRecipe();
+				}).catch(function (error) {
+					_this.error = error.data.message;
+				});
 			}
 		}]);
 
@@ -35315,17 +35348,10 @@
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<section id=\"newRecipe\">\n    <h1>Add a New Recipe</h1>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Title</label>\n            <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Title\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Ingredients</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\" class=\"form-inline row ingredient\">\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.measurementAmount\" class=\"form-control\" placeholder=\"amount\"></div>\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.measurementType.name\" class=\"form-control\" placeholder=\"measurement\"></div>\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.ingredient.name\" class=\"form-control\" placeholder=\"ingredient name\"></div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Instructions</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\" class=\"row instruction\">\n                    <div class=\"col-sm-9\">\n                        <textarea type=\"text\" class=\"form-control\" ng-model=\"i.instruction.text\" placeholder=\"Step {{$index+1}}\"></textarea>\n                    </div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <button type=\"submit\" class=\"btn btn-primary\">Submit Recipe</button>\n    </form>\n\n</section>";
+	module.exports = "<section id=\"newRecipe\">\n    <h1>Add a New Recipe</h1>\n\n    <div class=\"alert alert-success alert-dismissible fade in\" role=\"alert\" ng-show=\"newRecipeCtrl.success\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n        </button>\n        <strong>Yay!</strong> Your recipe was added!\n    </div>\n\n    <form ng-submit=\"newRecipeCtrl.submit()\">\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Title</label>\n            <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Title\" ng-model=\"newRecipeCtrl.newRecipe.name\">\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Ingredients</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.ingredients\" class=\"form-inline row ingredient\">\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.measurementAmount\" class=\"form-control\" placeholder=\"amount\"></div>\n                    <div class=\"col-sm-3\"><input type=\"text\" ng-model=\"i.ingredient.name\" class=\"form-control\" placeholder=\"ingredient name\" ng-focus=\"newRecipeCtrl.autoNewIngredient($index)\"></div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addIngredient()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"form-group row\">\n            <label class=\"col-sm-2 form-control-label\">Instructions</label>\n            <div class=\"col-sm-10\">\n                <div ng-repeat=\"i in newRecipeCtrl.newRecipe.instructions\" class=\"row instruction\">\n                    <div class=\"col-sm-9\">\n                        <textarea type=\"text\" class=\"form-control\" ng-model=\"i.instruction.text\" placeholder=\"Step {{$index+1}}\" ng-focus=\"newRecipeCtrl.autoNewInstruction($last)\"></textarea>\n                    </div>\n                    <div class=\"col-sm-3\"><span ng-if=\"$last\" ng-click=\"newRecipeCtrl.addInstruction()\" class=\"btn btn-primary-outline\">Add More</span></div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\" ng-show=\"newRecipeCtrl.error\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                <span aria-hidden=\"true\">&times;</span>\n            </button>\n            Oops! Something bad happened. Try again. If it doesn't work, take a screenshot and email Missy.\n        </div>\n\n        <button type=\"submit\" class=\"btn btn-primary\">Submit Recipe</button>\n    </form>\n\n</section>";
 
 /***/ },
 /* 15 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 16 */,
-/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35335,7 +35361,7 @@
 	});
 	exports.default = RecipesComponent;
 
-	var _controller = __webpack_require__(18);
+	var _controller = __webpack_require__(16);
 
 	var _controller2 = _interopRequireDefault(_controller);
 
@@ -35345,14 +35371,14 @@
 	  return {
 	    restrict: 'EA',
 	    replace: false,
-	    template: __webpack_require__(19),
+	    template: __webpack_require__(17),
 	    controller: _controller2.default,
 	    controllerAs: 'recipesCtrl'
 	  };
 	}
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -35383,6 +35409,27 @@
 					_this.recipes = response.data;
 				});
 			}
+		}, {
+			key: "processDelete",
+			value: function processDelete(recipe) {
+				recipe.showDeleteButton = true;
+			}
+		}, {
+			key: "cancelDelete",
+			value: function cancelDelete(recipe) {
+				delete recipe.showDeleteButton;
+			}
+		}, {
+			key: "deleteRecipe",
+			value: function deleteRecipe(_deleteRecipe) {
+				var _this2 = this;
+
+				this.service.deleteRecipe(_deleteRecipe.id).then(function () {
+					_this2.recipes = _this2.recipes.filter(function (recipe) {
+						return recipe.id !== _deleteRecipe.id;
+					});
+				});
+			}
 		}]);
 
 		return Controller;
@@ -35393,13 +35440,13 @@
 	exports.default = Controller;
 
 /***/ },
-/* 19 */
+/* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul class=\"list-group\">\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\" class=\"list-group-item\"><a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a></li>\n    </ul>\n</section>";
+	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul class=\"list-group\">\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\" class=\"list-group-item\">\n            <a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a>\n            <span class=\"pull-right\">\n                <i class=\"fa fa-trash\" aria-hidden=\"true\" ng-hide=\"recipe.showDeleteButton\" ng-click=\"recipesCtrl.processDelete(recipe)\"></i>\n                <button ng-if=\"recipe.showDeleteButton\" class=\"btn btn-warning-outline btn-sm\" ng-click=\"recipesCtrl.deleteRecipe(recipe)\">delete</button>\n                <button ng-if=\"recipe.showDeleteButton\" class=\"btn btn-info-outline btn-sm\" ng-click=\"recipesCtrl.cancelDelete(recipe)\">cancel</button>\n            </span>\n        </li>\n    </ul>\n</section>";
 
 /***/ },
-/* 20 */
+/* 18 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35434,12 +35481,11 @@
 			value: function createRecipe(recipe) {
 				return this.$http.post('http://localhost:8080/recipe', recipe);
 			}
-
-			//
-			//deleteRecipe(id) {
-			//	return this.$http.delete(`http://localhost:8080/recipe/${id}`)
-			//}
-
+		}, {
+			key: 'deleteRecipe',
+			value: function deleteRecipe(id) {
+				return this.$http.delete('http://localhost:8080/recipe/' + id);
+			}
 		}]);
 
 		return Service;
@@ -35450,7 +35496,7 @@
 	Service.$inject = ['$http'];
 
 /***/ },
-/* 21 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35459,12 +35505,12 @@
 		value: true
 	});
 
-	__webpack_require__(22);
+	__webpack_require__(20);
 
 	exports.default = angular.module('app.static-components', ['app.static-components.navigation']);
 
 /***/ },
-/* 22 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35473,7 +35519,7 @@
 		value: true
 	});
 
-	var _directive = __webpack_require__(23);
+	var _directive = __webpack_require__(21);
 
 	var _directive2 = _interopRequireDefault(_directive);
 
@@ -35482,7 +35528,7 @@
 	exports.default = angular.module('app.static-components.navigation', []).directive('navigationComponent', _directive2.default);
 
 /***/ },
-/* 23 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35495,12 +35541,12 @@
 		return {
 			restrict: 'EA',
 			replace: false,
-			template: __webpack_require__(24)
+			template: __webpack_require__(22)
 		};
 	}
 
 /***/ },
-/* 24 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = "<nav class=\"nav-inline\">\n\t<a ui-sref=\"recipes\" class=\"nav-link\">Home</a>\n\t<a ui-sref=\"newRecipe\" class=\"nav-link\">Add New Recipe</a>\n</nav>";

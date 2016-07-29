@@ -12,6 +12,24 @@ class Controller {
 			});
 	}
 
+	processDelete(recipe) {
+		recipe.showDeleteButton = true;
+	}
+
+	cancelDelete(recipe) {
+		delete recipe.showDeleteButton
+	}
+	
+	deleteRecipe(deleteRecipe) {
+		this.service.deleteRecipe(deleteRecipe.id)
+			.then(() => {
+				this.recipes = this.recipes
+					.filter(function (recipe) {
+							return recipe.id !== deleteRecipe.id;
+						}
+					);
+			})
+	}
 
 }
 

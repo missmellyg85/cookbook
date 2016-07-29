@@ -2,6 +2,13 @@
     <h1>{{recipesCtrl.title}}</h1>
 
     <ul class="list-group">
-        <li ng-repeat="recipe in recipesCtrl.recipes" class="list-group-item"><a ui-sref="recipe({id: recipe.id})">{{recipe.name}}</a></li>
+        <li ng-repeat="recipe in recipesCtrl.recipes" class="list-group-item">
+            <a ui-sref="recipe({id: recipe.id})">{{recipe.name}}</a>
+            <span class="pull-right">
+                <i class="fa fa-trash" aria-hidden="true" ng-hide="recipe.showDeleteButton" ng-click="recipesCtrl.processDelete(recipe)"></i>
+                <button ng-if="recipe.showDeleteButton" class="btn btn-warning-outline btn-sm" ng-click="recipesCtrl.deleteRecipe(recipe)">delete</button>
+                <button ng-if="recipe.showDeleteButton" class="btn btn-info-outline btn-sm" ng-click="recipesCtrl.cancelDelete(recipe)">cancel</button>
+            </span>
+        </li>
     </ul>
 </section>
