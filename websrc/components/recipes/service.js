@@ -4,19 +4,19 @@ export default class Service {
 	}
 
 	getAllRecipes() {
-		return this.$http.get('http://localhost:8080/recipe/all');
+		return this.$http.get('/recipe/all');
 	}
 
 	getRecipe(id) {
-		return this.$http.get(`http://localhost:8080/recipe/${id}`);
+		return this.$http.get(`/recipe/${id}`);
 	}
 
 	createRecipe(recipe) {
-		return this.$http.post('http://localhost:8080/recipe', recipe);
+		return this.$http.post('/recipe', recipe);
 	}
 
 	deleteRecipe(id) {
-		return this.$http.delete(`http://localhost:8080/recipe/${id}`)
+		return this.$http.delete(`/recipe/${id}`)
 	}
 
 }

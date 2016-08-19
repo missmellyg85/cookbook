@@ -35469,22 +35469,22 @@
 		_createClass(Service, [{
 			key: 'getAllRecipes',
 			value: function getAllRecipes() {
-				return this.$http.get('http://localhost:8080/recipe/all');
+				return this.$http.get('/recipe/all');
 			}
 		}, {
 			key: 'getRecipe',
 			value: function getRecipe(id) {
-				return this.$http.get('http://localhost:8080/recipe/' + id);
+				return this.$http.get('/recipe/' + id);
 			}
 		}, {
 			key: 'createRecipe',
 			value: function createRecipe(recipe) {
-				return this.$http.post('http://localhost:8080/recipe', recipe);
+				return this.$http.post('/recipe', recipe);
 			}
 		}, {
 			key: 'deleteRecipe',
 			value: function deleteRecipe(id) {
-				return this.$http.delete('http://localhost:8080/recipe/' + id);
+				return this.$http.delete('/recipe/' + id);
 			}
 		}]);
 
