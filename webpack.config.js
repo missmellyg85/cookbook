@@ -8,7 +8,8 @@ module.exports = {
 	entry: ["./websrc/app.js"],
 	output: {
 		path: path.resolve(__dirname, 'src/main/webapp/dist/'),
-		filename: "/cookbook.js"
+		filename: "/cookbook.js",
+		publicPath: "/dist/"
 	},
 	module: {
 		loaders: [
@@ -21,6 +22,10 @@ module.exports = {
 					presets: ['es2015']
 				}
 
+			},
+			{
+				test: /\.png$/i,
+				loader: 'url-loader?limit=10000&name=images/[name].[ext]'
 			},
 			{
 				test: /\.scss$/,

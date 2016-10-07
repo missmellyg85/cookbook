@@ -1,2 +1,4 @@
 #newRecipe .ingredient, #newRecipe .instruction {
   margin-bottom: 10px; }
+body {
+  background-image: url(/dist/images/retina_dust.png); }

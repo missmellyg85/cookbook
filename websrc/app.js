@@ -5,6 +5,8 @@ import routing from './app.routes';
 import './components/recipes/module';
 import './components/static-components/module';
 
+import './style.scss';
+
 angular.module('app', [
     uirouter,
     'app.recipes',
