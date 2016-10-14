@@ -1,7 +1,7 @@
 class Controller {
 	constructor(recipeService) {
 		this.service = recipeService;
-		this.title = "Recipes Page";
+		this.title = "Recipes";
 		this.loadRecipes();
 	}
 

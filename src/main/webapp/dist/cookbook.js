@@ -35405,7 +35405,7 @@
 			_classCallCheck(this, Controller);
 
 			this.service = recipeService;
-			this.title = "Recipes Page";
+			this.title = "Recipes";
 			this.loadRecipes();
 		}
 
@@ -35452,7 +35452,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul class=\"list-group\">\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\" class=\"list-group-item\">\n            <a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a>\n            <span class=\"pull-right\">\n                <i class=\"fa fa-trash\" aria-hidden=\"true\" ng-hide=\"recipe.showDeleteButton\" ng-click=\"recipesCtrl.processDelete(recipe)\"></i>\n                <button ng-if=\"recipe.showDeleteButton\" class=\"btn btn-warning-outline btn-sm\" ng-click=\"recipesCtrl.deleteRecipe(recipe)\">delete</button>\n                <button ng-if=\"recipe.showDeleteButton\" class=\"btn btn-info-outline btn-sm\" ng-click=\"recipesCtrl.cancelDelete(recipe)\">cancel</button>\n            </span>\n        </li>\n    </ul>\n</section>";
+	module.exports = "<section class=\"jumbotron\">\n    <h1>{{recipesCtrl.title}}</h1>\n\n    <ul class=\"list-group\">\n        <li ng-repeat=\"recipe in recipesCtrl.recipes\" class=\"list-group-item\">\n            <a ui-sref=\"recipe({id: recipe.id})\">{{recipe.name}}</a>\n            <span class=\"pull-right\">\n                <i class=\"fa fa-trash\" aria-hidden=\"true\" ng-hide=\"recipe.showDeleteButton\" ng-click=\"recipesCtrl.processDelete(recipe)\"></i>\n                <button ng-if=\"recipe.showDeleteButton\" class=\"btn btn-warning-outline btn-sm\" ng-click=\"recipesCtrl.deleteRecipe(recipe)\">delete</button>\n                <button ng-if=\"recipe.showDeleteButton\" class=\"btn btn-info-outline btn-sm\" ng-click=\"recipesCtrl.cancelDelete(recipe)\">cancel</button>\n            </span>\n        </li>\n    </ul>\n</section>";
 
 /***/ },
 /* 20 */
@@ -35532,6 +35532,8 @@
 
 	var _directive2 = _interopRequireDefault(_directive);
 
+	__webpack_require__(29);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = angular.module('app.static-components.navigation', []).directive('navigationComponent', _directive2.default);
@@ -35562,6 +35564,15 @@
 
 /***/ },
 /* 25 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

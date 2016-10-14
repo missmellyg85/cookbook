@@ -1,4 +1,7 @@
 #newRecipe .ingredient, #newRecipe .instruction {
   margin-bottom: 10px; }
+.navbar {
+  margin-bottom: 20px; }
 body {
-  background-image: url(/dist/images/retina_dust.png); }
+  background-size: 50%;
+  background-image: url(/dist/images/finalprettypattern.png); }
