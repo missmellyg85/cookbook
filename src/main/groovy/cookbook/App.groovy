@@ -2,6 +2,7 @@ package cookbook
 
 import org.apache.ibatis.session.SqlSessionFactory
 import org.mybatis.spring.SqlSessionFactoryBean
+import org.mybatis.spring.annotation.MapperScan
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -13,12 +14,13 @@ import org.springframework.context.annotation.PropertySources
 import javax.sql.DataSource
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.auth0.example")
+@ComponentScan("cookbook")
 @EnableAutoConfiguration
 @PropertySources([
 	@PropertySource("classpath:application.properties"),
 	@PropertySource("classpath:auth0.properties")
 ])
+@MapperScan("cookbook.daos")
 class App {
 
 	static void main(String[] args) {

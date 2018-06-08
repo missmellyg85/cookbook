@@ -2,13 +2,15 @@ var path = require('path');
 var node_modules_dir = path.join(__dirname, 'node_modules');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+var es2015 = require('babel-preset-es2015');
+
 var extractCSS = new ExtractTextPlugin('stylesheets/[name].css');
 
 module.exports = {
 	entry: ["./websrc/app.js"],
 	output: {
 		path: path.resolve(__dirname, 'src/main/webapp/dist/'),
-		filename: "/cookbook.js",
+		filename: "cookbook.js",
 		publicPath: "/dist/"
 	},
 	module: {
@@ -19,7 +21,7 @@ module.exports = {
 				loader: 'babel-loader',
 				query: {
 					cacheDirectory: true,
-					presets: ['es2015']
+					presets: [es2015]
 				}
 
 			},
@@ -29,16 +31,16 @@ module.exports = {
 			},
 			{
 				test: /\.scss$/,
-				loader: extractCSS.extract(['css','sass'])
+				loader: extractCSS.extract(['css-loader','sass-loader'])
 			},
 			{
 			  test: /\.html$/,
-			  loader: "html"
+			  loader: "html-loader"
 			}
 		]
 	},
 	resolve: {
-		extensions: ['', '.js']
+		extensions: ['.js']
 	},
 	plugins: [extractCSS],
 	watch: true

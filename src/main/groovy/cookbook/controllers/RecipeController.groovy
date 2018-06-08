@@ -12,17 +12,17 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/recipe")
 class RecipeController {
-    @Autowired CookbookDao dao
+    @Autowired CookbookDao cookbookDao
     @Autowired RecipeService service
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Recipe getRecipe(@PathVariable(value="id") int id) {
-        def result = dao.getRecipe(id)
+        def result = cookbookDao.getRecipe(id)
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Recipe> getAllRecipes() {
-        dao.getAllRecipes()
+        cookbookDao.getAllRecipes()
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -33,6 +33,6 @@ class RecipeController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteRecipe(@PathVariable(value = "id") int id) {
-        dao.deleteRecipe(id)
+        cookbookDao.deleteRecipe(id)
     }
 }
