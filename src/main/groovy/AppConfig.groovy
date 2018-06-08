@@ -10,20 +10,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity(debug = true)
 class AppConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${auth0.apiAudience}")
+    @Value('${auth0.apiAudience}')
     private String apiAudience
-    @Value("${auth0.issuer}")
+    @Value('${auth0.issuer}')
     private String issuer
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        JwtWebSecurityConfigurer
-                .forRS256(apiAudience, issuer)
-                .configure(http)
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/public").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/private").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/private-scoped").hasAuthority("read:messages")
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        JwtWebSecurityConfigurer
+//                .forRS256(apiAudience, issuer)
+//                .configure(http)
+//                .authorizeRequests()
+//                .antMatchers(HttpMethod.GET, "/api/public").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/private").authenticated()
+//                .antMatchers(HttpMethod.GET, "/api/private-scoped").hasAuthority("read:messages")
+//    }
 
 }

@@ -15,17 +15,16 @@ import javax.sql.DataSource
 @SpringBootApplication
 @ComponentScan(basePackages = "com.auth0.example")
 @EnableAutoConfiguration
-@PropertySources({
+@PropertySources([
 	@PropertySource("classpath:application.properties"),
 	@PropertySource("classpath:auth0.properties")
-})
-public class App {
+])
+class App {
 
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		SpringApplication.run(App.class, args)
 
 	}
-
 
 	@Bean
 	SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
