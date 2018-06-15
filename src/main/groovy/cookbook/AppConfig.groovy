@@ -25,6 +25,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/public").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/private").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/private-scoped").hasAuthority("read:messages");
+                .antMatchers(HttpMethod.POST, "/recipe").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/private-scoped").hasAuthority("read:messages")
     }
 }
