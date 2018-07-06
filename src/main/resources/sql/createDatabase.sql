@@ -14,12 +14,12 @@ CREATE TABLE ingredient (
   PRIMARY KEY(id)
 );
 
--- CREATE TABLE measurement_type (
---   id SERIAL,
---   name TEXT,
---   abbreviation TEXT,
---   PRIMARY KEY(id)
--- );
+CREATE TABLE measurement_type (
+  id SERIAL,
+  name TEXT,
+  abbreviation TEXT,
+  PRIMARY KEY(id)
+);
 
 CREATE TABLE recipe_ingredient (
   recipe_id INTEGER references recipe ON DELETE CASCADE,
