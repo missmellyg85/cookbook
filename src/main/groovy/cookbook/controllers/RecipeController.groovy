@@ -21,6 +21,7 @@ class RecipeController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:3000")
     List<Recipe> getAllRecipes() {
         cookbookDao.getAllRecipes()
     }
