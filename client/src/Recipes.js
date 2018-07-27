@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import RecipeIngredient from './recipe-ingredient';
+import RecipeInstruction from './recipe-instruction';
 
 class Recipes extends Component {
     constructor(props) {
@@ -19,17 +21,17 @@ class Recipes extends Component {
                         <h3>Ingredients</h3>
                         <ul>
                             {recipe.ingredients.map(ingredient =>
-                                <li key={recipe.id + "_ingredient" + ingredient.ingredientId}>
-                                    {ingredient.measurementAmount} {ingredient.ingredient.name}
-                                </li>
+                                <RecipeIngredient recipeId={recipe.id} ingredient={ingredient}
+                                                  key={recipe.id + "_ingredient" + ingredient.ingredientId}/>
                             )}
                         </ul>
                         <h3>Instructions</h3>
-                        <ul>
+                        <ol>
                             {recipe.instructions.map(instruction =>
-                                <li key={recipe.id + "_instruction" + instruction.instructionId}>{instruction.instruction.text}</li>
+                                <RecipeInstruction recipeId={recipe.id} instruction={instruction}
+                                                   key={recipe.id + "_instruction" + instruction.instructionId}/>
                             )}
-                        </ul>
+                        </ol>
                     </div>
                 )}
             </div>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {createRecipeStore} from "./store";
 import PropTypes from 'prop-types';
-import Recipes from './components/Recipes';
+import Recipes from './Recipes';
 
 
 class App extends Component {
